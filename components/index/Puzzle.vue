@@ -1,9 +1,9 @@
 <template lang="pug">
   el-row
-    el-col(:span="12")
+    el-col(:span="12", :xs="24")
       h2.section-heading {{title}}
       p.lead {{description}}
-    el-col(:span="10", :offset="2", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
+    el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       div#puzzle_view.row(v-cloak)
         div.cov-progress(:style="{width: progress + '%'}")
         div.col-lg-12

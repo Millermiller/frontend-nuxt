@@ -1,5 +1,5 @@
 <template lang="pug">
-  el-dialog(:visible.sync="visible" width="25%" title="Вход" :before-close="close")
+  el-dialog(:visible.sync="visible" title="Вход" :before-close="close")
     .registration
       el-form.registration-form(ref="form" v-loading="loading" :model="form" :rules="rules" @submit.native.prevent="submit")
         el-form-item(prop="login")

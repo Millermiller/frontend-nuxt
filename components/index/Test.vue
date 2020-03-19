@@ -1,6 +1,6 @@
 <template lang="pug">
   el-row
-    el-col(:span="12", data-aos="fade-right", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
+    el-col(:span="12", :xs="24", data-aos="fade-right", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       div#test_view(v-cloak)
         div(slot="header")
           div(:class="['cov-progress', {'cov-error': error}]" :style="{width: progress + '%'}")
@@ -13,7 +13,7 @@
         ul.variants(v-if="question.word")
           li.pointer(v-for="(variant, index) in variants", @click="check(variant)")
             span.counter {{ index + 1 }}. {{variant.text}}
-    el-col(:span="10", :offset="2")
+    el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading {{title}}
       p.lead {{description}}
 </template>

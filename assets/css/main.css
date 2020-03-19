@@ -75,3 +75,22 @@ header.el-header{
 a{
     cursor: pointer;
 }
+.el-dialog {
+    width: 25%;
+}
+@media screen and (max-width: 640px) {
+    .el-container .page-container{
+        width: 100%;
+    }
+    .el-container .page-container .el-col {
+        padding: 10px;
+    }
+
+    .el-dialog {
+        width: 90%;
+    }
+
+    .el-container.is-vertical {
+        overflow-x: hidden;
+    }
+}

@@ -1,9 +1,9 @@
 <template lang="pug">
   el-row
-    el-col(:span="10", :offset="2")
+    el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading {{title}}
       p.lead {{description}}
-    el-col.text-center(:span="12", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
+    el-col.text-center(:span="12", :xs="24", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       el-image(style="height: 400px" :src="imagePath" :fit="'contain'")
 </template>
 

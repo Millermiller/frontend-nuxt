@@ -1,6 +1,6 @@
 <template lang="pug">
   el-row
-    el-col(:span="12", data-aos="fade-right", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
+    el-col(:span="12", :xs="24", data-aos="fade-right", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       div#text_view(v-cloak)
         div.cov-progress(:style="{width: progress + '%'}")
         p.origtext(v-html="output")
@@ -12,7 +12,7 @@
             el-col(:span="12", :key="index")
               p.pointer(v-on:mouseover="showExtra(extra)" v-on:mouseout="clearExtra")
                 span {{extra.orig}} {{extra.extra}}
-    el-col(:span="10", :offset="2")
+    el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading Новые уровни
       p.lead.
         Проверяйте свои знания и открывайте новые словари, проходя тесты.

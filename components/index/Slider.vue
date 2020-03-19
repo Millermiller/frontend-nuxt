@@ -1,9 +1,9 @@
 <template lang="pug">
   el-row
-    el-col(:span="12")
+    el-col(:span="12", :xs="24")
       h2.section-heading {{title}}
       p.lead {{description}}
-    el-col(:span="12", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
+    el-col(:span="12", :xs="24", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       div(v-swiper:mySwiper="swiperOptionA")
         div.swiper-wrapper
           div.swiper-slide(v-for="(card, index) in cards", :key="index")
