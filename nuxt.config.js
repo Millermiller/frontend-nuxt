@@ -45,13 +45,19 @@ module.exports = {
         client_secret: 'poFBLStHoDt09k5vju77ETBBCE8HKSW3xvOiukYE'
       }
     }
-
+    // cookie: {
+    //   prefix: 'authfrontend.',
+    //   options: {
+    //     path: '/',
+    //     secure: false
+    //   }
+    // }
   },
 
   axios: {
-    baseURL: 'https://api.scandinaver.local',
+    baseURL: 'https://nginx',
+    browserBaseURL: 'https://api.scandinaver.local',
     credentials: true
-    //  proxy: true
   },
 
   css: [
@@ -68,6 +74,7 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui',
     '@/plugins/drag',
+    '@/plugins/axios',
     { src: '@/plugins/parallax', mode: 'client' },
     { src: '@/plugins/swiper.js', mode: 'client' },
     { src: '@/plugins/aos.js', mode: 'client' },
@@ -94,6 +101,9 @@ module.exports = {
   loading: { color: '#3B8070' },
 
   router: {
+    middleware: [
+      'preload'
+    ],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async scrollBehavior (to, from, savedPosition) {
       if (savedPosition) {

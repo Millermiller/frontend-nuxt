@@ -78,7 +78,7 @@ export default class extends Vue {
                 message: 'Произошел пиздец',
                 type: 'success'
               })
-              this.errors.email = data.response.data.errors.login ? data.response.data.errors.login[0] : ''
+              // this.errors.email = data.response.data.errors.login ? data.response.data.errors.login[0] : ''
               //  this.errors.password = data.response.data.errors.password ? data.response.data.errors.password[0] : ''
               // this.loading = false
             })
