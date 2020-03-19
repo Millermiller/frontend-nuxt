@@ -13,7 +13,7 @@ import { Component, Vue } from 'vue-property-decorator'
   @Component({
     name: 'Mobile'
   })
-export default class extends Vue {
+export default class Mobile extends Vue {
   private title: string = 'Всегда с собой'
   private description: string = 'Наше приложение доступно в Google Play бесплатно и без рекламы.'
   private imagePath: string = require('@/assets/mobile.png')

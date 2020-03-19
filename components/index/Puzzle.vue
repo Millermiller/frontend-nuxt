@@ -34,7 +34,7 @@ import RadialProgressBar from '@/components/index/RadialProgressBar.vue'
     name: 'Test',
     components: { RadialProgressBar }
   })
-export default class extends Vue {
+export default class Test extends Vue {
     private title: string = 'Словарные паззлы'
     private description: string = 'Разместите слова в правильном порядке.'
     private translate: string = 'Вдруг она увидела белого кролика'

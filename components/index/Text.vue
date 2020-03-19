@@ -26,7 +26,7 @@ import { syns } from '@/assets/syns'
   @Component({
     name: 'TextComponent'
   })
-export default class extends Vue {
+export default class TextComponent extends Vue {
     private text: any = {
       computed: '',
       created_at: '',

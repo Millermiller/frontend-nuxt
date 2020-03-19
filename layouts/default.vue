@@ -23,7 +23,7 @@ import RegistrationForm from '~/components/RegistrationForm.vue'
   @Component({
     components: { TopMenu, Footer, Scroller, LoginForm, RegistrationForm }
   })
-export default class extends Vue {
+export default class DefaultLayout extends Vue {
     private loginFormVisible: boolean = false
     private registrationFormVisible: boolean = false
 

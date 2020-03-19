@@ -30,7 +30,7 @@ import { Component, Vue } from 'vue-property-decorator'
   @Component({
     name: 'Languages'
   })
-export default class extends Vue {
+export default class Languages extends Vue {
     private imagePath: string = require('@/assets/is.jpg')
 }
 </script>

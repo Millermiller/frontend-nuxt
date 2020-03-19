@@ -17,7 +17,7 @@ import { Vue, Component } from 'vue-property-decorator'
   @Component({
     name: 'TopMenu'
   })
-export default class extends Vue {
+export default class TopMenu extends Vue {
   get loggiedIn () {
     return this.$auth.loggedIn
   }

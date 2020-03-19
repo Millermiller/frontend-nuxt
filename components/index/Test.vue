@@ -27,7 +27,7 @@ import { cardsArray } from '@/assets/cards'
     name: 'Test',
     components: { RadialProgressBar }
   })
-export default class extends Vue {
+export default class Test extends Vue {
   private title: string = 'Новые уровни'
   private description: string = 'Проверяйте свои знания и открывайте новые словари, проходя тесты.'
   private cards: any[] = []

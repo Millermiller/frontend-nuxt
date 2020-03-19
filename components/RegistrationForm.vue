@@ -28,7 +28,7 @@ import IRegistrationForm from '@/models/IRegistrationForm'
   @Component({
     name: 'RegistrationForm'
   })
-export default class extends Vue {
+export default class RegistrationForm extends Vue {
     @Prop({ required: true })
     private visible!: any
 

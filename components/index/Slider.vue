@@ -34,7 +34,7 @@ import { cardsArray } from '@/assets/cards'
     @Component({
       name: 'Slider'
     })
-export default class extends Vue {
+export default class Slider extends Vue {
   private title: string = 'Слова и предложения'
   private description: string = 'Мы приготовили сотни словарных карточек для каждого языка.\n' +
     'Карточка содержит слово, перевод, пример использования и произношение.\n' +

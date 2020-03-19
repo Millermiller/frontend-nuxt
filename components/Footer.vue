@@ -18,7 +18,7 @@ import { Vue, Component } from 'vue-property-decorator'
   @Component({
     name: 'Footer'
   })
-export default class extends Vue {
+export default class Footer extends Vue {
   private copyright: string = 'Copyright © Scandinaver 2020 | All Rights Reserved | support@scandinaver.org'
   private ivonaLogo: string = require('@/assets/ivona_tts_amzn.png')
   private forvoLogo: string = require('@/assets/forvo-logo.png')

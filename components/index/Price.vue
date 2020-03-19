@@ -117,7 +117,7 @@ import { Component, Vue } from 'vue-property-decorator'
   @Component({
     name: 'Price'
   })
-export default class extends Vue {
+export default class Price extends Vue {
   get loggiedIn () {
     return this.$auth.loggedIn
   }

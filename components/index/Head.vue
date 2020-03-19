@@ -16,7 +16,7 @@ import { Vue, Component } from 'vue-property-decorator'
   @Component({
     name: 'Head'
   })
-export default class extends Vue {
+export default class HeadComponent extends Vue {
   private text: string = '"Я изучаю исландский язык не для того, чтобы научиться политике, приобрести военные знания и' +
     '  т. п., <br/> ' +
     '    но для того, чтобы научиться образу мыслей мужа, для того, чтобы избавиться<br/>' +

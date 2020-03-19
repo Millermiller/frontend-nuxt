@@ -10,7 +10,7 @@ import { Vue, Component } from 'vue-property-decorator'
   @Component({
     name: 'Scroller'
   })
-export default class extends Vue {
+export default class Scroller extends Vue {
   private visible: boolean = false
 
   handleScroll () {

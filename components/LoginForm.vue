@@ -18,14 +18,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import LoginForm from '@/components/LoginForm.vue'
 import ILoginForm from '@/models/ILoginForm'
 
   @Component({
-    name: 'LoginForm',
-    components: { LoginForm }
+    name: 'LoginForm'
   })
-export default class extends Vue {
+export default class LoginForm extends Vue {
     @Prop({ required: true })
     private visible!: any
 
