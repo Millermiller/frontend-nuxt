@@ -65,16 +65,16 @@ export default class LoginForm extends Vue {
             .then(() => {
               this.close()
               this.$notify({
-                title: 'Success',
+                title: '',
                 message: 'Вы успешно авторизовались',
                 type: 'success'
               })
             })
-            .catch((data) => {
+            .catch((error) => {
               this.$notify({
-                title: 'danger',
-                message: 'Произошел пиздец',
-                type: 'success'
+                title: 'Ошибка',
+                message: error.response.data,
+                type: 'error'
               })
               // this.errors.email = data.response.data.errors.login ? data.response.data.errors.login[0] : ''
               //  this.errors.password = data.response.data.errors.password ? data.response.data.errors.password[0] : ''

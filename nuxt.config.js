@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
 
   buildModules: [
@@ -38,20 +40,16 @@ module.exports = {
         },
         tokenType: 'Bearer',
         tokenRequired: true
-      },
-      'laravel.passport': {
-        url: 'https://api.scandinaver.local',
-        client_id: '3',
-        client_secret: 'poFBLStHoDt09k5vju77ETBBCE8HKSW3xvOiukYE'
+      }
+    },
+    cookie: {
+      prefix: 'authfrontend.',
+      options: {
+        path: '/',
+        secure: false,
+        domain: process.env.COOKIE_DOMAIN
       }
     }
-    // cookie: {
-    //   prefix: 'authfrontend.',
-    //   options: {
-    //     path: '/',
-    //     secure: false
-    //   }
-    // }
   },
 
   axios: {
@@ -85,7 +83,7 @@ module.exports = {
     ** Headers of the page
     */
   head: {
-    title: 'front',
+    title: 'Scandinaver',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

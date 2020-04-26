@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.nuxt/
 /node_modules/
+/dist
+.env.dev

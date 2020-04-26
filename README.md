@@ -22,3 +22,10 @@ $ npm run generate
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
 docker exec -it <id> /bin/sh
+
+****** deploy/
+docker exec -it <id> /bin/sh
+npm run generate
+upload .nuxt
+ssh scandinaver
+pm2 restart main-frontend

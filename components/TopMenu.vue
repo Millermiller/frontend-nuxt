@@ -4,10 +4,10 @@
       nuxt-link.el-menu-item(tag="li" to="/") Главная
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'languages'}" tag="li") Языки
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'price'}" tag="li") Цены
-      li.el-menu-item(v-if="!loggiedIn" @click="openLoginModal") Вход
-      li.el-menu-item(v-if="!loggiedIn" @click="openRegistrationModal") Регистрация
-      li.el-menu-item(v-if="loggiedIn"  @click="logout") Выход
-      li(v-if="loggiedIn")
+      li.el-menu-item(v-show="!loggiedIn" @click="openLoginModal") Вход
+      li.el-menu-item(v-show="!loggiedIn" @click="openRegistrationModal") Регистрация
+      li.el-menu-item(v-show="loggiedIn"  @click="logout") Выход
+      li(v-show="loggiedIn")
         el-avatar(:size="40" :src="avatar")
 </template>
 
@@ -23,7 +23,7 @@ export default class TopMenu extends Vue {
   }
 
   get avatar () {
-    return this.$auth.user.avatar
+    return this.$auth.user?.avatar
   }
 
   openLoginModal () {

@@ -5,17 +5,19 @@
         div.cov-progress(:style="{width: progress + '%'}")
         p.origtext(v-html="output")
         textarea#transarea.panel(style="height: 100px", placeholder="Поле для перевода", v-model="input", @input="separate")
-        button.pull-right.btn.btn-warning(:plain="true" @click="clear") Очистить
+        el-button.pull-right(:plain="true" @click="clear") Очистить
       el-collapse
         el-collapse-item(title="Помощь" name="helpblock")
           template(v-for="(extra, index) in text.text_extra")
             el-col(:span="12", :key="index")
               p.pointer(v-on:mouseover="showExtra(extra)" v-on:mouseout="clearExtra")
-                span {{extra.orig}} {{extra.extra}}
+                span
+                  span.text-danger {{extra.orig}}
+                  span &nbsp;{{extra.extra}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
-      h2.section-heading Новые уровни
+      h2.section-heading Умный перевод
       p.lead.
-        Проверяйте свои знания и открывайте новые словари, проходя тесты.
+        Переводите текст, а мы сразу покажем правильные слова и прогресс выполнения.
 </template>
 
 <script lang="ts">
@@ -79,7 +81,7 @@ export default class TextComponent extends Vue {
         const result = this.text.computed.match(re)
 
         this.text.computed = this.text.computed.replace(
-          re, '$1<span class="success-text" tooltip=' + tooltip + '>$2</span>$3'
+          re, '$1<span class="text-success" tooltip=' + tooltip + '>$2</span>$3'
         )
 
         if (result) { c += (word.split(' ').length) * result.length } else { c += word.split(' ').length }
@@ -88,7 +90,7 @@ export default class TextComponent extends Vue {
       if (this.showedExtra !== '') {
         this.text.computed = this.text.computed.replace(
           new RegExp('(^|\\s|>)(' + this.showedExtra.trim() + ')([^\\w]|$|<)', 'gi'),
-          '$1<span class="warning-text">$2</span>$3'
+          '$1<span class="text-info">$2</span>$3'
         )
       }
 
@@ -126,17 +128,16 @@ export default class TextComponent extends Vue {
 }
 </script>
 
-<style scoped>
+<style>
   #text_view {
     padding: 10px;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
   }
   #transarea{
+    margin-top: 10px;
     border-radius: 2px;
-    border: 0;
-    -webkit-box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
-    box-shadow: 0 1px 6px 0 rgba(0,0,0,.12),0 1px 6px 0 rgba(0,0,0,.12);
+    border: 1px solid #e7e7e7;
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: auto;
@@ -145,16 +146,31 @@ export default class TextComponent extends Vue {
     padding: 10px;
     width: 100%;
   }
-  span.success-text {
-    background-color: #23d160;
-    color: #fff;
-    align-items: center;
-    border-radius: 5px;
-    padding-left: .1em;
-    padding-right: .1em;
-    vertical-align: top;
-    white-space: nowrap;
-    cursor: pointer;
+  .el-collapse-item__content {
+    padding: 10px;
+  }
+  .el-collapse-item__header{
+    padding-left: 10px;
+  }
+  .origtext span {
     position: relative;
+    cursor: pointer;
+  }
+  .el-collapse-item__content span:hover {
+    color: #20a0ff;
+  }
+  span[tooltip]:hover::after {
+    content:attr(tooltip);
+    padding:0 4px;
+    color:#333;
+    position:absolute;
+    left:13px;
+    top:-22px;
+    white-space:nowrap;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    border:1px solid #F56C6C;
+    background-color:#fff
   }
 </style>

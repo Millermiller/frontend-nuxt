@@ -18,7 +18,7 @@
             span.invisible 0
               span.rub
                 i / месяц
-          li.invisible(v-if="loggiedIn")
+          li.invisible(v-show="loggiedIn")
             button.btn.btn-danger Выбрать
 
     el-col(:span="6")
@@ -45,7 +45,7 @@
           span 0
             span
               i.rub / месяц
-        li.no-border(v-if="loggiedIn")
+        li.no-border(v-show="loggiedIn")
           button.btn.btn-danger.invisible Выбрать
 
     el-col(:span="6")
@@ -76,7 +76,7 @@
           span 200
             span.rub
             i / месяц
-        li(v-if="loggiedIn")
+        li(v-show="loggiedIn")
           a.btn.btn-danger Выбрать
 
     el-col(:span="6")
@@ -107,7 +107,7 @@
           span 150
             span.rub
               i / месяц
-        li(v-if="loggiedIn")
+        li(v-show="loggiedIn")
           a.btn.btn-danger Выбрать
 </template>
 
