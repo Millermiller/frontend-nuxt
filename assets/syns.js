@@ -35,7 +35,7 @@ export const syns = {
         "við hlið"
     ],
     "с": [
-        //  "sinnar"
+      "við hlið"
     ],
     "ее": [
         "sinnar"

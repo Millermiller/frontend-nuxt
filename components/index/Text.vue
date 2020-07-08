@@ -4,11 +4,16 @@
       div#text_view(v-cloak)
         div.cov-progress(:style="{width: progress + '%'}")
         p.origtext(v-html="output")
-        textarea#transarea.panel(style="height: 100px", placeholder="Поле для перевода", v-model="input", @input="separate")
+        textarea#transarea.panel(style="height: 100px",
+            placeholder="Поле для перевода",
+            v-model="inputStream",
+            @input="findPosition",
+            @click="findPosition",
+        )
         el-button.pull-right(:plain="true" @click="clear") Очистить
       el-collapse
         el-collapse-item(title="Помощь" name="helpblock")
-          template(v-for="(extra, index) in text.text_extra")
+          template(v-for="(extra, index) in text.extra")
             el-col(:span="12", :key="index")
               p.pointer(v-on:mouseover="showExtra(extra)" v-on:mouseout="clearExtra")
                 span
@@ -21,156 +26,258 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { text } from '@/assets/text'
 import { syns } from '@/assets/syns'
+import { Translate } from '~/models/Translate'
+import { BehaviorSubject, Subject } from 'rxjs'
 
-  @Component({
-    name: 'TextComponent'
-  })
+@Component({
+  name: 'TextComponent',
+})
 export default class TextComponent extends Vue {
-    private text: any = {
-      computed: '',
-      created_at: '',
-      updated_at: '',
-      id: 0,
-      published: 1,
-      text: '',
-      text_extra: [],
-      title: '',
-      words_count: 0
-    }
+  private text: Translate = new Translate()
 
-    private dictionary: any[] = []
-    private input: string = ''
-    private inputWords: any[] = []
-    private showedExtra: string = ''
-    private showSuccess: boolean = false
-    private progress: number = 0
-    private nextTextId: number = 0
-    private dictionaryLength: number = 0
+  private inputStream: string = ''
+  private input: Subject<string> = new Subject<string>()
+  private textSequence: {
+    text: string
+    selected: boolean
+    progress: number
+  }[] = [{ text: '', selected: false, progress: 0 }]
+  private inputSequence: string[] = []
+  private inputObservables: Subject<{ index: number; parts: string[] }>[] = []
+  private currentSentenceSubject: BehaviorSubject<number> = new BehaviorSubject<
+    number
+  >(0)
+  private showedExtra: string = ''
+  private length: number = 0
+  private dictionary: any = []
 
-    mounted () {
-      this.loadText()
-    }
+  @Watch('inputStream')
+  private onInputChanged(val: string) {
+    this.input.next(val)
+  }
 
-    get output () {
-      let c = 0
-      let origs: any[] = []
-      this.dictionaryLength = this.dictionary.length
-      this.text.computed = this.text.text
-
-      this.inputWords.forEach((el) => {
-        el = el.toLowerCase()
-        if (el !== '' && el in this.dictionary) {
-          origs = origs.concat(this.dictionary[el].map((item: any) => {
-            // eslint-disable-next-line no-return-assign
-            return item = item + '|' + el
-          }))
-        }
+  @Watch('progress')
+  private async onChange(progress: any) {
+    if (progress > 90) {
+      this.$notify.success({
+        title: this.text.title,
+        message: 'translateComplete',
+        duration: 3000,
       })
+    }
+  }
 
-      origs = origs.filter((v, i, a) => a.indexOf(v) === i)
+  get progress(): number {
+    const count = this.textSequence.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.progress,
+      0,
+    )
+    return Math.floor((count * 100) / this.length)
+  }
 
-      for (let i = 0; i < origs.length; i++) {
-        const arr = origs[i].split('|')
-        const word = arr[0].replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-        const tooltip = arr[1]
-
-        const re = new RegExp('(^|\\s)(' + word.trim() + ')([^\\w]|$)', 'gi')
-        const result = this.text.computed.match(re)
-
-        this.text.computed = this.text.computed.replace(
-          re, '$1<span class="text-success" tooltip=' + tooltip + '>$2</span>$3'
-        )
-
-        if (result) { c += (word.split(' ').length) * result.length } else { c += word.split(' ').length }
+  created() {
+    this.input.subscribe((data) => {
+      this.inputSequence = this.inputStream.split('.')
+      const index = this.currentSentenceSubject.getValue()
+      const parts = this.inputSequence[index].split(' ')
+      if (index <= this.textSequence.length - 1) {
+        this.inputObservables[index].next({ index, parts })
       }
+    })
 
-      if (this.showedExtra !== '') {
-        this.text.computed = this.text.computed.replace(
-          new RegExp('(^|\\s|>)(' + this.showedExtra.trim() + ')([^\\w]|$|<)', 'gi'),
-          '$1<span class="text-info">$2</span>$3'
-        )
+    this.currentSentenceSubject.subscribe((data) => {
+      this.textSequence.forEach((sequence) => {
+        sequence.selected = false
+      })
+      if (data <= this.textSequence.length - 1) {
+        this.textSequence[data].selected = true
       }
+    })
 
-      this.progress = Math.floor((c * 100) / this.text.words_count)
+    this.loadText()
+  }
 
-      if (this.progress > 99) { this.showSuccess = true }
+  get output(): string {
+    let output: string
 
-      return this.text.computed
+    output = this.textSequence
+      .map((sentence) => {
+        if (sentence.selected) {
+          return `<span class="active-sentence">${sentence.text}</span>`
+        }
+        return sentence.text
+      })
+      .join('. ')
+
+    if (this.showedExtra !== '') {
+      output = output.replace(
+        new RegExp(`(^|\\s|>)(${this.showedExtra.trim()})([^\\w]|$|<)`, 'gi'),
+        '$1<span class="warning-text">$2</span>$3',
+      )
     }
 
-    loadText () {
-      this.clear()
-      this.text = JSON.parse(JSON.stringify(text))
-      this.text.computed = this.text.text
-      this.dictionary = JSON.parse(JSON.stringify(syns))
-    }
+    return output
+  }
 
-    separate () {
-      this.inputWords = this.input.replace(/\s+/g, ' ').replace(/\./g, ' ').replace(/\,/g, '').trim().split(' ')
-    }
+  loadText() {
+    this.text = JSON.parse(JSON.stringify(text))
+    this.dictionary = JSON.parse(JSON.stringify(syns))
+    this.inputObservables = text.text
+      .split('.')
+      .map((chunk) => new Subject<{ index: number; parts: string[] }>())
+    this.inputObservables.forEach((observable) => {
+      observable.subscribe((data) => {
+        this.rebuild(data)
+      })
+    })
+    this.textSequence = text.text
+      .split('.')
+      .filter((chunk) => chunk !== '')
+      .map((chunk) => ({ text: chunk, selected: false, progress: 0 }))
+    this.length = [...new Set(text.text.split(' '))].length
+  }
 
-    showExtra (extra: any) {
-      this.showedExtra = extra.orig
-    }
+  rebuild(data: { index: number; parts: string[] }) {
+    data.parts = data.parts.filter((item) => item !== '')
 
-    clearExtra () {
-      this.showedExtra = ''
-    }
+    const origs: { [key: string]: string } = {}
+    const origparts: string[] = []
 
-    clear () {
-      this.input = ''
-      this.inputWords = []
-      this.progress = 0
-    }
+    data.parts.forEach((el: any) => {
+      el = el.toLowerCase()
+      if (el !== '' && el in this.dictionary) {
+        origparts.push(this.dictionary[el][0])
+        origs[this.dictionary[el]] = el
+      }
+    })
+
+    const searchString: string = origparts.join('|')
+      console.log(origparts)
+    this.textSequence[data.index].text = this.text.text
+      .split('.')
+      [data.index].replace(new RegExp(searchString, 'gi'), (match: string) => {
+        if (match !== '') {
+          return `<span class="success-text" tooltip=${origs[match]}>${match}</span>`
+        }
+        return match
+      })
+    this.textSequence[data.index].progress = [...new Set(origparts)].length
+  }
+
+  findPosition(ev: any) {
+    this.currentSentenceSubject.next(
+      this.inputStream.substring(0, ev.target.selectionStart).split('.')
+        .length - 1,
+    )
+  }
+
+  showExtra(extra: any) {
+    this.showedExtra = extra.orig
+  }
+
+  clearExtra() {
+    this.showedExtra = ''
+  }
+
+  async clear() {
+    await this.loadText()
+    this.currentSentenceSubject.next(0)
+    this.inputStream = ''
+  }
 }
 </script>
 
-<style>
-  #text_view {
-    padding: 10px;
-    border: 1px solid #e7e7e7;
-    background-color: #f8f8f8;
+<style lang="scss">
+@import '../../assets/css/variables';
+
+.active-sentence {
+  background-color: rgba(238, 195, 115, 0.86);
+}
+span.success-text {
+  background-color: #23d160;
+  color: #fff;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0;
+  vertical-align: top;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+}
+#text_view {
+  padding: 10px;
+  border: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+}
+#transarea {
+  margin-top: 10px;
+  border-radius: 2px;
+  border: 1px solid #e7e7e7;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 10px;
+  width: 100%;
+}
+.el-collapse-item__content {
+  padding: 10px;
+}
+.el-collapse-item__header {
+  padding-left: 10px;
+}
+.origtext span {
+  position: relative;
+  cursor: pointer;
+}
+.el-collapse-item__content span:hover {
+  color: #20a0ff;
+}
+span[tooltip] {
+  &:hover {
+    &:after {
+      content: attr(tooltip);
+      position: absolute;
+      top: -38px;
+      left: 5px;
+      background: #fff;
+      color: #303133;
+      border: 1px solid #303133;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      padding: 6px 10px;
+      z-index: 9000;
+      font-size: 12px;
+      line-height: 1.2;
+      min-width: 10px;
+      word-wrap: break-word;
+    }
+    &:before {
+      content: '1';
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #000;
+      overflow: hidden;
+    }
   }
-  #transarea{
-    margin-top: 10px;
-    border-radius: 2px;
-    border: 1px solid #e7e7e7;
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: auto;
-    margin-bottom: 20px;
-    background-color: #fff;
-    padding: 10px;
-    width: 100%;
-  }
-  .el-collapse-item__content {
-    padding: 10px;
-  }
-  .el-collapse-item__header{
-    padding-left: 10px;
-  }
-  .origtext span {
-    position: relative;
-    cursor: pointer;
-  }
-  .el-collapse-item__content span:hover {
-    color: #20a0ff;
-  }
-  span[tooltip]:hover::after {
-    content:attr(tooltip);
-    padding:0 4px;
-    color:#333;
-    position:absolute;
-    left:13px;
-    top:-22px;
-    white-space:nowrap;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
-    border:1px solid #F56C6C;
-    background-color:#fff
-  }
+}
+span.warning-text {
+  background-color: $danger-color;
+  color: #fff;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  vertical-align: top;
+  white-space: nowrap;
+}
 </style>

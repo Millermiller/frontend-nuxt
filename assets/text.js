@@ -5,7 +5,7 @@ export const text =  {
     "Skyndilega hún sá hvíta kanínu, sem hljóp fram hjá.",
   //  "words_count": 82,
     "words_count": 23,
-    "text_extra": [
+    "extra": [
         {
             "id": 47,
             "text_id": 36,
