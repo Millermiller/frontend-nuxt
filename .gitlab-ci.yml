@@ -25,5 +25,5 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_dsa
     - chmod 600 ~/.ssh/id_dsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav --delete ./ deployer@185.87.193.247:/var/www/nuxt-frontend
+    - rsync -rav -c --delete ./ deployer@185.87.193.247:/var/www/nuxt-frontend
     - ssh -t deployer@185.87.193.247 "cd /var/www/nuxt-frontend &&  npm run start"
