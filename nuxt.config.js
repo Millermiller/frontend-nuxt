@@ -47,14 +47,20 @@ module.exports = {
       options: {
         path: '/',
         secure: false,
-        domain: process.env.COOKIE_DOMAIN
+        domain: process.env.NODE_ENV === 'development'
+          ? process.env.COOKIE_DOMAIN
+          : '.scandinaver.org',
       }
     }
   },
 
   axios: {
-    baseURL: 'https://nginx',
-    browserBaseURL: 'https://api.scandinaver.local',
+    baseURL: process.env.NODE_ENV === 'development'
+      ? process.env.API_BASE_URL
+      : 'https://api.scandinaver.org',
+    browserBaseURL: process.env.NODE_ENV === 'development'
+      ? process.env.BROWSER_BASE_URL
+      : 'https://api.scandinaver.org',
     credentials: true
   },
 
@@ -100,7 +106,7 @@ module.exports = {
 
   router: {
     middleware: [
-      'preload'
+    //  'preload'
     ],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async scrollBehavior (to, from, savedPosition) {

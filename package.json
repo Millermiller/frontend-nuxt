@@ -5,7 +5,7 @@
   "author": "john <day_at_the_way@mail.ru>",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts --hostname scandinaver.local",
+    "dev": "NODE_ENV=development nuxt-ts --hostname scandinaver.local",
     "build": "nuxt-ts build",
     "build prod": "nuxt-ts build --mode production",
     "generate": "nuxt-ts generate",

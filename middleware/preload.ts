@@ -1,9 +1,9 @@
 
 import { Middleware } from '@nuxt/types'
 
-const myMiddleware: Middleware = (context) => {
+const myMiddleware: Middleware = async (context) => {
   if (process.server) {
-    return context.$auth.fetchUser()
+    return await context.$auth.fetchUser()
   }
 }
 
