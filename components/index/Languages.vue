@@ -10,7 +10,7 @@
           Люди живут здесь, только потому что здесь родились.
           Понимай, как хочешь, то ли божья кара, то ли благодать.
         div.bottom.clearfix
-         el-link(href="https://lang.scandinaver.org/is", type="text").button Перейти
+         el-link(href="https://learn.scandinaver.org/is", type="text").button Перейти
           i.el-icon-caret-right
 </template>
 
