@@ -14,47 +14,48 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import TopMenu from '@/components/TopMenu.vue'
-import Footer from '@/components/Footer.vue'
+import TopMenu from '~/components/TopMenu.vue'
+import Footer from '~/components/Footer.vue'
 import Scroller from '~/components/Scroller.vue'
 import LoginForm from '~/components/LoginForm.vue'
 import RegistrationForm from '~/components/RegistrationForm.vue'
 
-  @Component({
-    components: { TopMenu, Footer, Scroller, LoginForm, RegistrationForm }
-  })
+@Component({
+  components: { TopMenu, Footer, Scroller, LoginForm, RegistrationForm },
+})
 export default class DefaultLayout extends Vue {
-    private loginFormVisible: boolean = false
-    private registrationFormVisible: boolean = false
+  private loginFormVisible: boolean = false
+  private registrationFormVisible: boolean = false
 
-    created () {
-      this.$eventHub.$on('closeLoginModal', this.closeLoginModal)
-      this.$eventHub.$on('openLoginModal', this.openLoginModal)
-      this.$eventHub.$on('closeRegistrationModal', this.closeRegistrationModal)
-      this.$eventHub.$on('openRegistrationModal', this.openRegistrationModal)
-    }
+  created() {
+    this.$eventHub.$on('closeLoginModal', this.closeLoginModal)
+    this.$eventHub.$on('openLoginModal', this.openLoginModal)
+    this.$eventHub.$on('closeRegistrationModal', this.closeRegistrationModal)
+    this.$eventHub.$on('openRegistrationModal', this.openRegistrationModal)
+  }
 
-    closeLoginModal () {
-      this.loginFormVisible = false
-    }
+  closeLoginModal() {
+    this.loginFormVisible = false
+  }
 
-    closeRegistrationModal () {
-      this.registrationFormVisible = false
-    }
+  closeRegistrationModal() {
+    this.registrationFormVisible = false
+  }
 
-    openLoginModal () {
-      this.loginFormVisible = true
-    }
+  openLoginModal() {
+    this.loginFormVisible = true
+  }
 
-    openRegistrationModal () {
-      this.registrationFormVisible = true
-    }
+  openRegistrationModal() {
+    this.registrationFormVisible = true
+  }
 }
 </script>
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -64,7 +65,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0;
 }

@@ -4,7 +4,7 @@
       ul.pricing.p-yel
         li.invisible
           big !
-            span бессрочно
+          span бессрочно
           li Доступных наборов "слова"
           li Доступных наборов "предложения"
           li Доступных текстов для перевода
@@ -40,11 +40,8 @@
         li
           i.el-icon-check.color-success
         li
-          h3 0
-            span.rub i
-          span 0
-            span
-              i.rub / месяц
+          h3 0₽
+          span 0₽ / месяц
         li.no-border(v-show="loggiedIn")
           button.btn.btn-danger.invisible Выбрать
 
@@ -70,12 +67,8 @@
         li
           i.el-icon-check.color-warning
         li
-          h3 200
-            span.rub
-              i
-          span 200
-            span.rub
-            i / месяц
+          h3 200₽
+          span 200₽ / месяц
         li(v-show="loggiedIn")
           a.btn.btn-danger Выбрать
 
@@ -101,12 +94,8 @@
         li
           i.el-icon-check.color-info
         li
-          h3 450
-           span.rub
-             i
-          span 150
-            span.rub
-              i / месяц
+          h3 450₽
+          span 150₽ / месяц
         li(v-show="loggiedIn")
           a.btn.btn-danger Выбрать
 </template>
@@ -114,68 +103,105 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({
-    name: 'Price'
-  })
+@Component({
+  name: 'Price',
+})
 export default class Price extends Vue {
-  get loggiedIn () {
+  get loggiedIn() {
     return this.$auth.loggedIn
   }
 }
 </script>
 
-<style scoped>
-  .rub {
-    font-family: ALSRubl,serif;
-  }
-  .pricing {
-    text-align: center;
-    border: 1px solid #e7e7e7;
-    color: #777;
-    font-size: 14px;
-    padding-left: 0;
-    margin-bottom: 30px;
-  }
-  .pricing li:first-child, .pricing li:last-child {
-    padding: 20px 13px;
-  }
-  .invisible {
-    visibility: hidden;
-  }
-  .p-yel big, .p-yel h3 {
-    color: #ffbb42;
-  }
-  .pricing big {
-    font-size: 32px;
-    font-family: 'Julius Sans One',sans-serif;
-    display: block;
-  }
-  .p-green big, .p-green h3 {
-    color: #4c7737;
-  }
-  .btn.color-Medium, .color-Medium, .p-red big, .p-red h3 {
-    color: #e13c4c;
-  }
-  .btn.color-Large, .color-Large, .p-blue big, .p-blue h3 {
-    color: #3f4bb8;
-  }
-  .pricing li + li {
-    border-top: 1px solid #e7e7e7;
-  }
-  .pricing li {
+<style scoped lang="scss">
+.pricing {
+  text-align: center;
+  border: 1px solid #e7e7e7;
+  color: #777;
+  font-size: 14px;
+  padding-left: 0;
+  margin-bottom: 30px;
+  li {
+    &:first-child {
+      padding: 20px 13px;
+    }
+    &:last-child {
+      padding: 20px 13px;
+    }
+    + {
+      li {
+        border-top: 1px solid #e7e7e7;
+      }
+    }
     list-style: none;
     padding: 13px 0;
   }
-  .el-icon-check, .el-icon-close{
-    font-size: 24px;
+  big {
+    font-size: 32px;
+    font-family: 'Julius Sans One', sans-serif;
+    display: block;
   }
-  .color-success {
+}
+.invisible {
+  visibility: hidden;
+}
+.p-yel {
+  big {
+    color: #ffbb42;
+  }
+  h3 {
+    color: #ffbb42;
+  }
+}
+.p-green {
+  big {
     color: #4c7737;
   }
-  .color-warning {
+  h3 {
+    color: #4c7737;
+  }
+}
+.btn.color-Medium {
+  color: #e13c4c;
+}
+.color-Medium {
+  color: #e13c4c;
+}
+.p-red {
+  big {
     color: #e13c4c;
   }
-  .color-info {
-    color:  #3f4bb8;
+  h3 {
+    color: #e13c4c;
   }
+}
+.btn.color-Large {
+  color: #3f4bb8;
+}
+.color-Large {
+  color: #3f4bb8;
+}
+.p-blue {
+  big {
+    color: #3f4bb8;
+  }
+  h3 {
+    color: #3f4bb8;
+  }
+}
+.el-icon-check {
+  font-size: 24px;
+}
+.el-icon-close {
+  font-size: 24px;
+}
+.color-success {
+  color: #4c7737;
+}
+.color-warning {
+  color: #e13c4c;
+}
+.color-info {
+  color: #3f4bb8;
+}
 </style>

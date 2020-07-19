@@ -1,4 +1,5 @@
 require('dotenv').config()
+import { messages } from '~/locales/ru.json'
 
 module.exports = {
 
@@ -10,7 +11,19 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    'cookie-universal-nuxt'
+  //  'nuxt-i18n',
+  //  {
+  //    locales: ['en', 'ru'],
+  //    defaultLocale: 'ru',
+  //    vueI18n: {
+  //      locale: "ru",
+  //      fallbackLocale: "ru",
+  //      localeDir: "locales",
+  //      enableInSFC: false
+  //    }
+  //  }
   ],
 
   toast: {
@@ -69,20 +82,22 @@ module.exports = {
     'element-ui/lib/theme-chalk/index.css',
     'swiper/dist/css/swiper.css',
     'aos/dist/aos.css',
-    '@assets/css/main.css'
+    '@assets/css/main.scss'
   ],
 
   /*
     ** Add element-ui in our app, see plugins/element-ui.js file
     */
   plugins: [
-    '@/plugins/element-ui',
-    '@/plugins/drag',
-    '@/plugins/axios',
-    { src: '@/plugins/parallax', mode: 'client' },
-    { src: '@/plugins/swiper.js', mode: 'client' },
-    { src: '@/plugins/aos.js', mode: 'client' },
-    { src: '~/plugins/event-bus' }
+    '~/plugins/element-ui',
+    '~/plugins/drag',
+    '~/plugins/axios',
+    { src: '~/plugins/parallax', mode: 'client' },
+    { src: '~/plugins/swiper.js', mode: 'client' },
+    { src: '~/plugins/aos.js', mode: 'client' },
+    { src: '~/plugins/event-bus' },
+    '~/plugins/i18n.js',
+    '~/plugins/typedi.js'
   ],
 
   /*

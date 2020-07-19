@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import 'reflect-metadata'
 const eventBus = {}
 
 eventBus.install = (Vue) => {

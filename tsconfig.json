@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
     "experimentalDecorators": true,
-    "target": "es2018",
+    "jsx": "preserve",
+    "importHelpers": true,
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
     "lib": [
       "esnext",
       "esnext.asynciterable",
@@ -22,11 +26,10 @@
       "~/*": [
         "./*"
       ],
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["src/*"]
     },
     "types": [
+      "reflect-metadata",
       "@types/node",
       "@nuxt/types",
       "@types/nuxtjs__auth"
@@ -34,5 +37,12 @@
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ]
 }

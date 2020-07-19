@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios'
-import request from '@/utils/request'
-import ILoginForm from '@/models/ILoginForm'
-import IState from '@/models/State'
+import request from '~/utils/request'
+import ILoginForm from '~/models/ILoginForm'
+import IState from '~/models/State'
+import IRegistrationForm from "~/models/IRegistrationForm";
 
 export interface ILoginData {
   state: IState
@@ -15,4 +16,7 @@ export default {
   logout(): Promise<AxiosResponse> {
     return request.post('/logout')
   },
+  signup(form: IRegistrationForm): Promise<AxiosResponse> {
+    return request.post('/signup', form)
+  }
 }

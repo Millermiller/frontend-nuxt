@@ -1,0 +1,16 @@
+{
+  "registration": "Регистрация",
+  "forgotPassword": "Забыли пароль?",
+  "close": "Закрыть",
+  "signIn": "Вход",
+  "signOut": "Выход",
+  "login": "Логин",
+  "loginOrEmail": "Логин или email",
+  "password": "Пароль",
+  "confirmPassword": "Пароль еще рвз",
+  "email": "Email",
+  "navMenu": {
+    "languages": "Языки",
+    "price": "Цены"
+  }
+}

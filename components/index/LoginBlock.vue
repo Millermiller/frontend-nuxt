@@ -6,14 +6,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({
-    name: 'Languages'
-  })
+@Component({
+  name: 'Languages',
+})
 export default class Languages extends Vue {
-    private imagePath: string = require('@/assets/is.jpg')
+  private imagePath: string = require('@/assets/is.jpg')
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

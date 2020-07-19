@@ -13,46 +13,52 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 
-  @Component({
-    name: 'Head'
-  })
+@Component({
+  name: 'Head',
+})
 export default class HeadComponent extends Vue {
-  private text: string = '"Я изучаю исландский язык не для того, чтобы научиться политике, приобрести военные знания и' +
+  private text: string =
+    '"Я изучаю исландский язык не для того, чтобы научиться политике, приобрести военные знания и' +
     '  т. п., <br/> ' +
     '    но для того, чтобы научиться образу мыслей мужа, для того, чтобы избавиться<br/>' +
     '    от укоренившегося во мне с детства благодаря воспитанию духа убожества и рабства,<br/>' +
     '    для того, чтобы закалить мысль и душу так, чтобы я мог без трепета идти навстречу опасности <br/>' +
     '    и чтобы моя душа предпочла скорее расстаться с телом,<br/>' +
     '    чем отречься от того, в истинности и правоте чего она непоколебимо убеждена."<br/>' +
-    '    Rasmus Christian Rask'
+    '    © Rasmus Christian Rask'
 
-    private imageSrc: string = require('@/assets/head-bg.jpg')
+  private imageSrc: string = require('@/assets/head-bg.jpg')
 }
 </script>
 
-<style scoped>
-  .parallax-container{
-    height: 800px;
-    overflow: hidden;
+<style scoped lang="scss">
+.parallax-container {
+  height: 800px;
+  overflow: hidden;
+}
+.el-image {
+  width: 100%;
+  transform: translate3d(0px, 92.25px, 0px);
+  overflow: hidden;
+  position: absolute;
+  height: 800px;
+}
+.el-image__inner {
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+}
+.intro-message {
+  color: rgb(255, 255, 255);
+  padding: 300px 20%;
+  z-index: 1000;
+  h1 {
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+    margin-right: 10%;
   }
-  .parallax-wrapper{
-
+  p {
+    font-size: 16px
   }
-  .el-image{
-    width: 100%;
-    transform: translate3d(0px, 92.25px, 0px);
-    overflow: hidden;
-    position: absolute;
-    height: 800px;
-  }
-  .el-image__inner{
-    object-fit: contain;
-    position: absolute;
-    top: 0;
-  }
-  .intro-message{
-    color: rgb(255, 255, 255);
-    padding: 300px 20%;
-    z-index: 1000;
-  }
+}
 </style>

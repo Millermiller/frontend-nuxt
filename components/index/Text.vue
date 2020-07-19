@@ -18,7 +18,7 @@
               p.pointer(v-on:mouseover="showExtra(extra)" v-on:mouseout="clearExtra")
                 span
                   span.text-danger {{extra.orig}}
-                  span &nbsp;{{extra.extra}}
+                  span &nbsp; - {{extra.extra}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading Умный перевод
       p.lead.
@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { text } from '@/assets/text'
-import { syns } from '@/assets/syns'
+import { text } from '~/assets/text'
+import { syns } from '~/assets/syns'
 import { Translate } from '~/models/Translate'
 import { BehaviorSubject, Subject } from 'rxjs'
 
@@ -155,7 +155,6 @@ export default class TextComponent extends Vue {
     })
 
     const searchString: string = origparts.join('|')
-      console.log(origparts)
     this.textSequence[data.index].text = this.text.text
       .split('.')
       [data.index].replace(new RegExp(searchString, 'gi'), (match: string) => {
@@ -193,8 +192,13 @@ export default class TextComponent extends Vue {
 <style lang="scss">
 @import '../../assets/css/variables';
 
+h2 {
+  border-bottom: 1px solid #777;
+  margin-bottom: 10px;
+}
+
 .active-sentence {
-  background-color: rgba(238, 195, 115, 0.86);
+  background-color: #81D4FA70;
 }
 span.success-text {
   background-color: #23d160;
@@ -210,7 +214,7 @@ span.success-text {
 #text_view {
   padding: 10px;
   border: 1px solid #e7e7e7;
-  background-color: #f8f8f8;
+  background-color: #fff;
 }
 #transarea {
   margin-top: 10px;
@@ -223,6 +227,8 @@ span.success-text {
   background-color: #fff;
   padding: 10px;
   width: 100%;
+  font-size: 14px;
+  font-family: inherit;
 }
 .el-collapse-item__content {
   padding: 10px;
@@ -230,10 +236,14 @@ span.success-text {
 .el-collapse-item__header {
   padding-left: 10px;
 }
-.origtext span {
-  position: relative;
-  cursor: pointer;
+.origtext {
+  font-size: 20px;
+  span {
+    position: relative;
+    cursor: pointer;
+  }
 }
+
 .el-collapse-item__content span:hover {
   color: #20a0ff;
 }

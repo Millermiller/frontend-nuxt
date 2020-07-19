@@ -1,0 +1,144 @@
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #eeeeee;
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+.pointer {
+  cursor: pointer;
+}
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+  font-size: 34px;
+}
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+  font-size: 24px;
+}
+h4 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+h5 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+h6 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+  font-weight: 200;
+  font-size: 2.5em;
+}
+.h3 {
+  font-size: 24px;
+}
+.rotating {
+  animation: loading-rotate 0.5s linear 1;
+}
+header.el-header {
+  padding: 0;
+  z-index: 10;
+}
+.el-container {
+  .el-main {
+    padding: 0;
+    position: relative;
+    top: -60px;
+  }
+  .page-container {
+    padding: 50px 0;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+  }
+}
+.lead {
+  font-size: 18px;
+  font-weight: 400;
+  color: #777;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.text-success {
+  color: #67c23a;
+}
+.text-warning {
+  color: #e6a23c;
+}
+.text-danger {
+  color: #f56c6c;
+}
+.text-info {
+  color: #409eff;
+}
+.cov-progress {
+  background-color: #20a0ff;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 5px;
+  transition: width 0.2s ease 0s, opacity 0.6s ease 0s;
+}
+.section-light {
+  z-index: 10;
+  padding: 50px 0;
+  background-color: #fff;
+}
+.section-dark {
+  padding: 50px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+  z-index: 1;
+}
+.text-center {
+  text-align: center;
+}
+.page-container.full-width {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+a {
+  cursor: pointer;
+}
+.el-dialog {
+  width: 25%;
+}
+.el-menu-head {
+  padding: 0 10px;
+}
+@media screen and (max-width: 640px) {
+  .el-container {
+    .page-container {
+      width: 100%;
+      .el-col {
+        padding: 10px;
+      }
+    }
+  }
+  .el-dialog {
+    width: 90%;
+  }
+  .el-container.is-vertical {
+    overflow-x: hidden;
+  }
+}

@@ -1,29 +1,28 @@
 <template lang="pug">
-  el-dialog(:visible.sync="visible" title="Вход" :before-close="close")
+  el-dialog(:visible.sync="visible" :title="$t('registration')" :before-close="close")
     .registration
       el-form.registration-form(ref="form" v-loading="loading" :model="form" :rules="rules" @submit.native.prevent="submit")
         el-form-item(prop="login")
-          el-input(v-model="form.login" placeholder="Username" prefix-icon="el-icon-user")
+          el-input(v-model="form.login" :placeholder="$t('login')" prefix-icon="el-icon-user")
 
         el-form-item(prop="email")
-          el-input(v-model="form.email" placeholder="Email" prefix-icon="el-icon-message")
+          el-input(v-model="form.email" :placeholder="$t('email')" prefix-icon="el-icon-message")
 
         el-form-item(prop="password")
-          el-input(v-model="form.password" placeholder="Password" type="password" prefix-icon="el-icon-lock")
+          el-input(v-model="form.password" :placeholder="$t('password')" type="password" prefix-icon="el-icon-lock")
 
         el-form-item(prop="checkPass")
-          el-input(v-model="form.checkPass" type="password" autocomplete="off" prefix-icon="el-icon-lock")
+          el-input(v-model="form.checkPass" :placeholder="$t('confirmPassword')" type="password" autocomplete="off" prefix-icon="el-icon-lock")
 
         el-form-item
-          el-button.registration-button(type="primary" native-type="submit" block) registration
-          el-button(@click="resetForm()") Cancel
-
-        a.forgot-password(href="https://oxfordinformatics.com/") Forgot password ?
+          el-button.registration-button(type="primary" native-type="submit" block) {{$t('registration')}}
+          el-button(@click="resetForm()") {{$t('close')}}
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import IRegistrationForm from '@/models/IRegistrationForm'
+import IRegistrationForm from '~/models/IRegistrationForm'
+import userAPI from "~/api/userAPI";
 
   @Component({
     name: 'RegistrationForm'
@@ -76,11 +75,9 @@ export default class RegistrationForm extends Vue {
       // @ts-ignore
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$auth.loginWith('local', {
-            data: {
-              username: this.form.login,
-              password: this.form.password
-            }
+          userAPI.signup(this.form).then(response => {
+            console.log(response.data)
+          //  this.$auth.setUser(customUser)
           })
         }
       })

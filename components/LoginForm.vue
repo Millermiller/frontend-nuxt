@@ -1,24 +1,24 @@
 <template lang="pug">
-  el-dialog(:visible.sync="visible" , title="Вход" :before-close="close")
+  el-dialog(:visible.sync="visible" , :title="$t('signIn')" :before-close="close")
     div.login
       el-form.login-form(ref="form" v-loading="loading" :model="form" :rules="rules" @submit.native.prevent="submit")
 
         el-form-item(prop="login" :error="errors.login")
-          el-input(v-model="form.login" placeholder="Username" prefix-icon="el-icon-user")
+          el-input(v-model="form.login" :placeholder="$t('loginOrEmail')" prefix-icon="el-icon-user")
 
         el-form-item(prop="password" :error="errors.password")
-          el-input(v-model="form.password" placeholder="Password" type="password" prefix-icon="el-icon-lock")
+          el-input(v-model="form.password" :placeholder="$t('password')" type="password" prefix-icon="el-icon-lock")
 
         el-form-item
-          el-button.login-button(type="primary" native-type="submit" block) Login
-          el-button(@click="resetForm()") Cancel
+          el-button.login-button(type="primary" native-type="submit" block) {{$t('signIn')}}
+          el-button(@click="resetForm()") {{$t('close')}}
 
-        a.forgot-password(href="https://oxfordinformatics.com/") Forgot password ?
+        <!-- a.forgot-password(href="##") {{$t('forgotPassword')}} -->
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import ILoginForm from '@/models/ILoginForm'
+import ILoginForm from '~/models/ILoginForm'
 
   @Component({
     name: 'LoginForm'

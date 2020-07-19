@@ -10,23 +10,30 @@
           Люди живут здесь, только потому что здесь родились.
           Понимай, как хочешь, то ли божья кара, то ли благодать.
         div.bottom.clearfix
-         el-link(href="https://is.scandinaver.org", type="text").button Перейти
+         el-link(href="https://lang.scandinaver.org/is", type="text").button Перейти
+          i.el-icon-caret-right
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-  @Component({
-    name: 'Languages'
-  })
+@Component({
+  name: 'Languages',
+})
 export default class Languages extends Vue {
-    private imagePath: string = require('@/assets/is.jpg')
+  private imagePath: string = require('@/assets/s600.jpg')
 }
 </script>
 
-<style scoped>
-  .bottom.clearfix{
-    text-align: right;
-    padding: 10px;
-  }
+<style scoped lang="scss">
+.el-card__header span {
+  font-size: 18px;
+}
+.el-card__body p.lead {
+  padding: 10px;
+}
+.bottom.clearfix {
+  text-align: right;
+  padding: 10px;
+}
 </style>
