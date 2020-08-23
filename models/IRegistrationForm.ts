@@ -2,5 +2,5 @@ export default interface ILoginForm {
   login: string,
   email: string,
   password: string,
-  checkPass: string
+  password_confirmation: string
 }
