@@ -1,14 +1,14 @@
 module.exports = {
-  apps : [
+  apps: [
     {
-      name: "nuxt-dev",
-      script: "npm",
-      args: "run dev",
+      name: 'nuxt-dev',
+      script: 'npm',
+      args: 'run dev'
     },
     {
-      name: "nuxt-prod",
-      script: "npm",
-      args: "run start",
+      name: 'nuxt-prod',
+      script: 'npm',
+      args: 'run start'
     }
   ]
 }
