@@ -10,16 +10,16 @@ export default class TestService extends BaseService<Test> {
   @Inject()
   private repository: TestRepository
 
-  create(asset: Asset): Test {
-    return new Test(asset);
+  create (asset: Asset): Test {
+    return new Test(asset)
   }
 
-  async saveResult(test: Test) {
+  async saveResult (test: Test) {
     await this.repository.update(test, test.percent)
     await store.dispatch('reloadStore')
   }
 
-  async getNextLevel(test: Test) {
+  async getNextLevel (test: Test) {
     await this.repository.getNextLevel(test)
     await store.dispatch('reloadStore')
   }

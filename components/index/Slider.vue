@@ -1,8 +1,8 @@
 <template lang="pug">
   el-row
     el-col(:span="12", :xs="24")
-      h2.section-heading {{title}}
-      p.lead {{description}}
+      h2.section-heading {{$t('blocks.slider.title')}}
+      p.lead {{$t('blocks.slider.description')}}
     el-col(:span="12", :xs="24", data-aos="fade-left", data-aos-offset="10", data-aos-delay="100", data-aos-duration="1000")
       div(v-swiper:mySwiper="swiperOptionA")
         div.swiper-wrapper
@@ -33,56 +33,50 @@ import { Component, Vue } from 'vue-property-decorator'
 import { cardsArray } from '~/assets/cards'
 
 @Component({
-  name: 'Slider',
+  name: 'Slider'
 })
 export default class Slider extends Vue {
-  private title: string = 'Слова и предложения'
-  private description: string =
-    'Мы приготовили сотни словарных карточек для каждого языка.\n' +
-    'Карточка содержит слово, перевод, пример использования и произношение.\n' +
-    'Также, вы можете создавать личные словари со своими карточками.'
-
   private activeClass: string = 'el-icon-star-on'
   private defaultClass: string = 'el-icon-star-off'
   private cards: any[] = []
   private swiperOptionA: any = {
     pagination: {
-      el: '.swiper-pagination',
+      el: '.swiper-pagination'
     },
     navigation: {
       nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      prevEl: '.swiper-button-prev'
     },
     spaceBetween: 30,
     centeredSlides: true,
     slidesPerView: 1.5,
-    loop: false,
+    loop: false
   }
 
-  mounted() {
+  mounted () {
     this.cards = cardsArray.slice()
     // this.cards.shuffle()
   }
 
-  get swiperA() {
+  get swiperA () {
     // @ts-ignore
     return this.$refs.awesomeSwiperA.swiper
   }
 
-  onSetTranslate() {
-    console.log('onSetTranslate')
+  onSetTranslate () {
+    // console.log('onSetTranslate')
   }
 
-  showTranslate(index: number) {
+  showTranslate (index: number) {
     this.cards[index].show = !this.cards[index].show
   }
 
-  play(card: any) {
+  play (card: any) {
     // @ts-ignore
     new Audio(card.audio).play()
   }
 
-  favourite(index: number) {
+  favourite (index: number) {
     this.cards[index].favourite = !this.cards[index].favourite
   }
 }

@@ -48,11 +48,11 @@ import Price from '~/components/index/Price.vue'
     TextComponent,
     Mobile,
     Languages,
-    Price,
-  },
+    Price
+  }
 })
 export default class extends Vue {
-  get name() {
+  get name () {
     return (this.$store.state as RootState).name
   }
 }

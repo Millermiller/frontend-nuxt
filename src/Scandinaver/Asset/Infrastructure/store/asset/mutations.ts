@@ -9,19 +9,19 @@ import {
 } from '@/Scandinaver/Asset/Infrastructure/store/asset/mutations.type'
 
 export default class AssetMutations extends Mutations<State> {
-  setPersonal(data: IPersonal[]) {
+  setPersonal (data: IPersonal[]) {
     this.state.personal = data
   }
 
-  setWords(data: Word[]) {
+  setWords (data: Word[]) {
     this.state.words = data
   }
 
-  setSentences(data: ISentence[]) {
+  setSentences (data: ISentence[]) {
     this.state.sentences = data
   }
 
-  setFavourites(data: any) {
+  setFavourites (data: any) {
     this.state.favourites = data
   }
 
@@ -31,7 +31,7 @@ export default class AssetMutations extends Mutations<State> {
    * @param data.index
    * @param data.asset
    */
-  patchPersonal(data: any) {
+  patchPersonal (data: any) {
     this.state.personal[data.index] = data.asset
   }
 
@@ -41,28 +41,28 @@ export default class AssetMutations extends Mutations<State> {
    * @param card.id
    * @param card.asset_id
    */
-  removeCard(card: Card) {
+  removeCard (card: Card) {
     const index = this.state.personal.findIndex((item: any) => item.id === card.asset_id)
     this.state.personal[index].count--
   }
 
-  incrementFavouriteCounter(): void {
+  incrementFavouriteCounter (): void {
     this.state.personal[0].count++
   }
 
-  decrementFavouriteCounter(): void {
+  decrementFavouriteCounter (): void {
     this.state.personal[0].count--
   }
 
   /**
    * @param asset_id
    */
-  addCard(asset_id: number) {
+  addCard (asset_id: number) {
     const index = this.state.personal.findIndex((item: any) => item.id === asset_id)
     this.state.personal[index].count++
   }
 
-  setSelection(assetId: number) {
+  setSelection (assetId: number) {
     this.state.personal.forEach((element: IPersonal, index: number, array: IPersonal[]) => {
       Vue.set(element, 'selected', element.id === assetId)
     })
@@ -81,15 +81,15 @@ export default class AssetMutations extends Mutations<State> {
     }
   }
 
-  setActivePersonalAssetName(data: string): void {
+  setActivePersonalAssetName (data: string): void {
     this.state.activePersonalAssetName = data
   }
 
-  setActiveAssetType(data: number): void {
+  setActiveAssetType (data: number): void {
     this.state.activeAssetType = data
   }
 
-  setActiveAssetEdit(data: boolean): void {
+  setActiveAssetEdit (data: boolean): void {
     this.state.activePersonalAssetEdit = data
   }
 }

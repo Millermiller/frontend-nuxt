@@ -9,5 +9,5 @@ export const puzzleModule = new Module({
   state: State,
   getters: PuzzleGetters,
   mutations: PuzzleMutations,
-  actions: PuzzleActions,
+  actions: PuzzleActions
 })

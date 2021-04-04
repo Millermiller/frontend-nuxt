@@ -4,7 +4,7 @@ import UserGetters from '@/Scandinaver/Core/Infrastructure/store/user/getters'
 import UserMutations from '@/Scandinaver/Core/Infrastructure/store/user/mutations'
 
 export default class UserActions extends Actions<State, UserGetters, UserMutations, UserActions> {
-  auth(isAuth: boolean) {
+  auth (isAuth: boolean) {
     this.commit('setAuth', isAuth)
   }
 }

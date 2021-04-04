@@ -1,16 +1,16 @@
 import { AxiosResponse } from 'axios'
-import request from '~/utils/request'
 import { Puzzle } from '@/Scandinaver/Puzzle/Domain/Puzzle'
 import { Service } from 'typedi'
+import request from '~/utils/request'
 
 export namespace API {
   @Service()
   export class PuzzleAPI {
-    getPuzzles(): Promise<AxiosResponse<Puzzle[]>> {
+    getPuzzles (): Promise<AxiosResponse<Puzzle[]>> {
       return request.get('/puzzle')
     }
 
-    processPuzzle(puzzle: Puzzle): Promise<AxiosResponse> {
+    processPuzzle (puzzle: Puzzle): Promise<AxiosResponse> {
       return request.put(`/puzzle/${puzzle.id}`)
     }
 

@@ -4,7 +4,7 @@ import { Asset } from '@/Scandinaver/Asset/Domain/Asset'
 import Question from '@/Scandinaver/Asset/Domain/Question'
 
 export class Test {
-  constructor(asset: Asset) {
+  constructor (asset: Asset) {
     this.asset = asset
     const translates = asset.cards.map(card => card.translate)
     const questions = this.asset.cards.map(card => new Question(card, translates))
@@ -18,24 +18,24 @@ export class Test {
   fail: number = 0
   errors: Question[] = []
 
-  get id(): number {
+  get id (): number {
     return this.asset.id
   }
 
-  get title(): string {
+  get title (): string {
     return this.asset.title
   }
 
-  get cards(): CardsCollection {
+  get cards (): CardsCollection {
     return new CardsCollection(this.asset.cards)
   }
 
   // количество вопросов
-  get quantity(): number {
+  get quantity (): number {
     return this.questions.count()
   }
 
-  get percent(): number {
+  get percent (): number {
     return Math.floor((this.success * 100) / this.quantity)
   }
 }

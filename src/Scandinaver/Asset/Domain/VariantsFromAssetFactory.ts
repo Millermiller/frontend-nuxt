@@ -10,7 +10,7 @@ import Variant from '@/Scandinaver/Asset/Domain/Variant'
 export default class VariantsFromAssetFactory implements IVariantsFabric {
   private count: number = 4
 
-  build(payload: Card, data: Translate[]): VariantsCollection {
+  build (payload: Card, data: Translate[]): VariantsCollection {
     const variants = new VariantsCollection([])
     const rightTranslate = payload.translate
     const rightVariant = new Variant(rightTranslate.value)

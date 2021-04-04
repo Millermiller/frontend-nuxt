@@ -1,5 +1,5 @@
-require('dotenv').config()
 import { messages } from '~/locales/ru.json'
+require('dotenv').config()
 
 module.exports = {
 
@@ -12,18 +12,17 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/toast',
-    'cookie-universal-nuxt'
-  //  'nuxt-i18n',
-  //  {
-  //    locales: ['en', 'ru'],
-  //    defaultLocale: 'ru',
-  //    vueI18n: {
-  //      locale: "ru",
-  //      fallbackLocale: "ru",
-  //      localeDir: "locales",
-  //      enableInSFC: false
-  //    }
-  //  }
+    'cookie-universal-nuxt',
+    ['nuxt-i18n',
+      {
+        locales: [
+          { code: 'en', iso: 'en-US', file: 'en.js' },
+          { code: 'ru', iso: 'ru-RU', file: 'ru.js' }
+        ],
+        defaultLocale: 'ru',
+        lazy: true,
+        langDir: 'locales/'
+      }]
   ],
 
   toast: {
@@ -49,7 +48,7 @@ module.exports = {
             propertyName: 'access_token'
           },
           logout: { url: '/logout', method: 'post' },
-          user: { url: '/user', method: 'get', propertyName: false }
+          user: { url: '/me', method: 'get', propertyName: false }
         },
         tokenType: 'Bearer',
         tokenRequired: true
@@ -62,7 +61,7 @@ module.exports = {
         secure: false,
         domain: process.env.NODE_ENV === 'development'
           ? process.env.COOKIE_DOMAIN
-          : '.scandinaver.org',
+          : '.scandinaver.org'
       }
     }
   },
@@ -74,7 +73,7 @@ module.exports = {
     browserBaseURL: process.env.NODE_ENV === 'development'
       ? process.env.BROWSER_BASE_URL
       : 'https://api.scandinaver.org',
-    credentials: true
+    credentials: false
   },
 
   css: [
@@ -95,8 +94,7 @@ module.exports = {
     { src: '~/plugins/parallax', mode: 'client' },
     { src: '~/plugins/swiper.js', mode: 'client' },
     { src: '~/plugins/aos.js', mode: 'client' },
-    { src: '~/plugins/event-bus' },
-    '~/plugins/i18n.js',
+    { src: '~/plugins/event-bus.js' },
     '~/plugins/typedi.js'
   ],
 

@@ -10,19 +10,19 @@ export default class FavouriteRepository extends BaseRepository<Card> {
   @Inject()
   private api: CardApi
 
-  async all(): Promise<Card[]> {
+  async all (): Promise<Card[]> {
     return Promise.resolve([])
   }
 
-  async one(id: number): Promise<Card> {
+  async one (id: number): Promise<Card> {
     return Promise.resolve(new Card())
   }
 
-  async save(card: Card): Promise<Card> {
+  async save (card: Card): Promise<Card> {
     return this.api.addFavourite(card).then(response => plainToClass(Card, response.data))
   }
 
-  async delete(card: Card): Promise<any> {
+  async delete (card: Card): Promise<any> {
     this.api.destroyFavourite(card).then(response => response)
   }
 }

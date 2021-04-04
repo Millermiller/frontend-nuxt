@@ -3,14 +3,11 @@
     el-col.text-center(:span="6", :xs="24", data-aos="fade-up", data-aos-offset="200", data-aos-delay="50", data-aos-duration="1000")
       el-card(:body-style="{ padding: '0px' }")
         div.clearfix(slot="header")
-          span Исландский язык
+          span {{$t('languages.icelandic.title')}}
         el-image(style="width: 100%", :src="imagePath", :fit="'fit'")
-        p.lead.
-          Здесь нет ни насекомых, ни деревьев, вообще ничего.
-          Люди живут здесь, только потому что здесь родились.
-          Понимай, как хочешь, то ли божья кара, то ли благодать.
+        p.lead {{$t('languages.icelandic.description')}}
         div.bottom.clearfix
-         el-link(href="https://learn.scandinaver.org/is", type="text").button Перейти
+         el-link(href="https://learn.scandinaver.org/is", type="text").button {{$tc('goTo')}}
           i.el-icon-caret-right
 </template>
 
@@ -18,7 +15,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'Languages',
+  name: 'Languages'
 })
 export default class Languages extends Vue {
   private imagePath: string = require('@/assets/s600.jpg')

@@ -1,5 +1,5 @@
-import Vue, { VueConstructor } from 'vue'
+import Vue from 'vue'
 import 'reflect-metadata'
 import VueTypedi from 'vue-typedi'
 
-Vue.use(VueTypedi);
+Vue.use(VueTypedi)

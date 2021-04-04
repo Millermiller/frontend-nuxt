@@ -1,5 +1,5 @@
 export default class LanguageService {
-  public static extract(): string {
+  public static extract (): string {
     const hostnameArr = window.location.pathname.split('/')
 
     if (hostnameArr[1].length === 2) {

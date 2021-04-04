@@ -11,27 +11,27 @@ export default class CardRepository extends BaseRepository<Card> {
   @Inject()
   private api: CardApi
 
-  public async all(): Promise<Card[]> {
+  public async all (): Promise<Card[]> {
     throw new Error('method not implemented')
   }
 
-  public async one(id: number): Promise<Card> {
+  public async one (id: number): Promise<Card> {
     throw new Error('method not implemented')
   }
 
-  public async delete(card: Card): Promise<any> {
+  public async delete (card: Card): Promise<any> {
     this.api.destroyCard(card).then(response => response)
   }
 
-  public async save(card: Card): Promise<Card> {
+  public async save (card: Card): Promise<Card> {
     return this.api.createCard(card).then(response => plainToClass(Card, response.data))
   }
 
-  public async translate(word: string, sentence: boolean) {
+  public async translate (word: string, sentence: boolean) {
     return this.api.translate(word, sentence).then(response => response)
   }
 
-  public async addWord(form: IDictionaryForm) {
+  public async addWord (form: IDictionaryForm) {
     return this.api.addWord(form).then(response => plainToClass<Card, Card>(Card, response.data))
   }
 }

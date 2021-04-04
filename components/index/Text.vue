@@ -20,20 +20,19 @@
                   span.text-danger {{extra.orig}}
                   span &nbsp; - {{extra.extra}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
-      h2.section-heading Умный перевод
-      p.lead.
-        Переводите текст, а мы сразу покажем правильные слова и прогресс выполнения.
+      h2.section-heading {{$tc('blocks.text.title')}}
+      p.lead {{$tc('blocks.text.description')}}
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import { BehaviorSubject, Subject } from 'rxjs'
 import { text } from '~/assets/text'
 import { syns } from '~/assets/syns'
 import { Translate } from '~/models/Translate'
-import { BehaviorSubject, Subject } from 'rxjs'
 
 @Component({
-  name: 'TextComponent',
+  name: 'TextComponent'
 })
 export default class TextComponent extends Vue {
   private text: Translate = new Translate()
@@ -45,40 +44,42 @@ export default class TextComponent extends Vue {
     selected: boolean
     progress: number
   }[] = [{ text: '', selected: false, progress: 0 }]
+
   private inputSequence: string[] = []
   private inputObservables: Subject<{ index: number; parts: string[] }>[] = []
   private currentSentenceSubject: BehaviorSubject<number> = new BehaviorSubject<
     number
   >(0)
+
   private showedExtra: string = ''
   private length: number = 0
   private dictionary: any = []
 
   @Watch('inputStream')
-  private onInputChanged(val: string) {
+  private onInputChanged (val: string) {
     this.input.next(val)
   }
 
   @Watch('progress')
-  private async onChange(progress: any) {
+  private onChange (progress: any) {
     if (progress > 90) {
       this.$notify.success({
         title: this.text.title,
         message: 'translateComplete',
-        duration: 3000,
+        duration: 3000
       })
     }
   }
 
-  get progress(): number {
+  get progress (): number {
     const count = this.textSequence.reduce(
       (accumulator, currentValue) => accumulator + currentValue.progress,
-      0,
+      0
     )
     return Math.floor((count * 100) / this.length)
   }
 
-  created() {
+  created () {
     this.input.subscribe((data) => {
       this.inputSequence = this.inputStream.split('.')
       const index = this.currentSentenceSubject.getValue()
@@ -100,7 +101,7 @@ export default class TextComponent extends Vue {
     this.loadText()
   }
 
-  get output(): string {
+  get output (): string {
     let output: string
 
     output = this.textSequence
@@ -115,19 +116,19 @@ export default class TextComponent extends Vue {
     if (this.showedExtra !== '') {
       output = output.replace(
         new RegExp(`(^|\\s|>)(${this.showedExtra.trim()})([^\\w]|$|<)`, 'gi'),
-        '$1<span class="warning-text">$2</span>$3',
+        '$1<span class="warning-text">$2</span>$3'
       )
     }
 
     return output
   }
 
-  loadText() {
+  loadText () {
     this.text = JSON.parse(JSON.stringify(text))
     this.dictionary = JSON.parse(JSON.stringify(syns))
     this.inputObservables = text.text
       .split('.')
-      .map((chunk) => new Subject<{ index: number; parts: string[] }>())
+      .map(chunk => new Subject<{ index: number; parts: string[] }>())
     this.inputObservables.forEach((observable) => {
       observable.subscribe((data) => {
         this.rebuild(data)
@@ -135,13 +136,13 @@ export default class TextComponent extends Vue {
     })
     this.textSequence = text.text
       .split('.')
-      .filter((chunk) => chunk !== '')
-      .map((chunk) => ({ text: chunk, selected: false, progress: 0 }))
+      .filter(chunk => chunk !== '')
+      .map(chunk => ({ text: chunk, selected: false, progress: 0 }))
     this.length = [...new Set(text.text.split(' '))].length
   }
 
-  rebuild(data: { index: number; parts: string[] }) {
-    data.parts = data.parts.filter((item) => item !== '')
+  rebuild (data: { index: number; parts: string[] }) {
+    data.parts = data.parts.filter(item => item !== '')
 
     const origs: { [key: string]: string } = {}
     const origparts: string[] = []
@@ -166,22 +167,22 @@ export default class TextComponent extends Vue {
     this.textSequence[data.index].progress = [...new Set(origparts)].length
   }
 
-  findPosition(ev: any) {
+  findPosition (ev: any) {
     this.currentSentenceSubject.next(
       this.inputStream.substring(0, ev.target.selectionStart).split('.')
-        .length - 1,
+        .length - 1
     )
   }
 
-  showExtra(extra: any) {
+  showExtra (extra: any) {
     this.showedExtra = extra.orig
   }
 
-  clearExtra() {
+  clearExtra () {
     this.showedExtra = ''
   }
 
-  async clear() {
+  async clear () {
     await this.loadText()
     this.currentSentenceSubject.next(0)
     this.inputStream = ''
@@ -197,9 +198,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-.active-sentence {
-  background-color: #81D4FA70;
-}
 span.success-text {
   background-color: #23d160;
   color: #fff;
@@ -241,6 +239,9 @@ span.success-text {
   span {
     position: relative;
     cursor: pointer;
+    .active-sentence {
+      background-color: #81D4FA70;
+    }
   }
 }
 

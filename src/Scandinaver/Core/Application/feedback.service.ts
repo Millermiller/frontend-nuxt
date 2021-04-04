@@ -7,7 +7,7 @@ export default class FeedbackService {
   @Inject()
   private repository: FeedbackRepository
 
-  async addFeedback(form: IFeedbackForm): Promise<FeedbackForm> {
+  async addFeedback (form: IFeedbackForm): Promise<FeedbackForm> {
     return this.repository.save(form)
   }
 }

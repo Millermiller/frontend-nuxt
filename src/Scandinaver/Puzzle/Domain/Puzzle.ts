@@ -10,11 +10,11 @@ export class Puzzle extends Entity {
   translate: any
   pieces: PieceCollection
 
-  getId(): number | string {
+  getId (): number | string {
     return this.id
   }
 
-  generate(): Puzzle {
+  generate (): Puzzle {
     const slices = this.translate.split(' ')
     const pieces: Piece[] = []
     slices.forEach((item: string) => {
@@ -24,11 +24,11 @@ export class Puzzle extends Entity {
     return this
   }
 
-  get count(): number {
+  get count (): number {
     return this.pieces.count()
   }
 
-  setActive(active: boolean) {
+  setActive (active: boolean) {
     this.active = active
     return this
   }

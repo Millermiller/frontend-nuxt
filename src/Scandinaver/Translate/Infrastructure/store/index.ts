@@ -7,5 +7,5 @@ export const text = new Module({
   namespaced: false,
   state: State,
   getters: TextGetters,
-  mutations: TextMutations,
+  mutations: TextMutations
 })

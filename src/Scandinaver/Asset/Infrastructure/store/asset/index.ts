@@ -9,5 +9,5 @@ export const assetModule = new Module({
   state: State,
   getters: AssetGetters,
   mutations: AssetMutations,
-  actions: AssetActions,
+  actions: AssetActions
 })

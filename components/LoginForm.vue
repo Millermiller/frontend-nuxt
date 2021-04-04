@@ -56,6 +56,7 @@ export default class LoginForm extends Vue {
       // @ts-ignore
       this.$refs.form.validate((valid) => {
         if (valid) {
+          // @ts-ignore
           this.$auth.loginWith('local', {
             data: {
               login: this.form.login,

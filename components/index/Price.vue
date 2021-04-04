@@ -4,13 +4,13 @@
       ul.pricing.p-yel
         li.invisible
           big !
-          span бессрочно
-          li Доступных наборов "слова"
-          li Доступных наборов "предложения"
-          li Доступных текстов для перевода
-          li Словарные паззлы
-          li Создание персональных наборов
-          li Мобильное приложение
+          span {{$tc('priceList.unlimited')}}
+          li {{$tc('priceList.words')}}
+          li {{$tc('priceList.sentences')}}
+          li {{$tc('priceList.translate')}}
+          li {{$tc('priceList.puzzle')}}
+          li {{$tc('priceList.personal')}}
+          li {{$tc('priceList.mobile')}}
           li
             h3.invisible 0
               span
@@ -18,14 +18,14 @@
             span.invisible 0
               span.rub
                 i / месяц
-          li.invisible(v-show="loggiedIn")
-            button.btn.btn-danger Выбрать
+          li.invisible(v-show="loggedIn")
+            button.btn.btn-danger {{$tc('select')}}
 
     el-col(:span="6")
       ul.pricing.p-green
         li
           big Basic
-          span бессрочно
+          span {{$tc('priceList.unlimited')}}
         li
           span.color-success 10
         li
@@ -42,8 +42,8 @@
         li
           h3 0₽
           span 0₽ / месяц
-        li.no-border(v-show="loggiedIn")
-          button.btn.btn-danger.invisible Выбрать
+        li.no-border(v-show="loggedIn")
+          button.btn.btn-danger.invisible {{$tc('select')}}
 
     el-col(:span="6")
       ul.pricing.p-red
@@ -69,8 +69,8 @@
         li
           h3 200₽
           span 200₽ / месяц
-        li(v-show="loggiedIn")
-          a.btn.btn-danger Выбрать
+        li(v-show="loggedIn")
+          a.btn.btn-danger {{$tc('select')}}
 
     el-col(:span="6")
       ul.pricing.p-blue
@@ -96,18 +96,18 @@
         li
           h3 450₽
           span 150₽ / месяц
-        li(v-show="loggiedIn")
-          a.btn.btn-danger Выбрать
+        li(v-show="loggedIn")
+          a.btn.btn-danger {{$tc('select')}}
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'Price',
+  name: 'Price'
 })
 export default class Price extends Vue {
-  get loggiedIn() {
+  get loggedIn () {
     return this.$auth.loggedIn
   }
 }

@@ -6,5 +6,5 @@ import { root } from './root'
 Vue.use(Vuex)
 
 export const store = createStore(root, {
-  strict: process.env.NODE_ENV !== 'production',
+  strict: process.env.NODE_ENV !== 'production'
 })

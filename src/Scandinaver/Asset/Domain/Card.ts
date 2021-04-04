@@ -11,23 +11,25 @@ export class Card extends Entity {
   word: Word
   @Type(() => Translate)
   translate!: Translate
+
   nocontrols?: boolean
   audio: string
   @Type(() => User)
   user: User
+
   favourite?: boolean
   asset: Asset
   exist: boolean
 
-  getId(): number | string {
+  getId (): number | string {
     return this.id
   }
 
-  get subject(): string {
+  get subject (): string {
     return this.word.word
   }
 
-  get value(): string {
+  get value (): string {
     return this.translate.value
   }
 }

@@ -3,26 +3,26 @@ import State from '@/Scandinaver/Core/Infrastructure/store/user/state'
 import { IUser } from '@/Scandinaver/Core/Domain/User'
 
 export default class UserMutations extends Mutations<State> {
-  setUser(user: IUser) {
+  setUser (user: IUser) {
     this.state.user.avatar = user.avatar
     this.state.user.email = user.email
     this.state.user.id = user.id
     this.state.user.login = user.login
   }
 
-  setAuth(auth: boolean) {
+  setAuth (auth: boolean) {
     this.state.user.authenticated = auth
   }
 
-  setActiveTo(date: string) {
+  setActiveTo (date: string) {
     this.state.user.active_to = date
   }
 
-  setActive(active: boolean) {
+  setActive (active: boolean) {
     this.state.user.active = active
   }
 
-  setPlan(plan: any) {
+  setPlan (plan: any) {
     this.state.user.plan = plan
   }
 }

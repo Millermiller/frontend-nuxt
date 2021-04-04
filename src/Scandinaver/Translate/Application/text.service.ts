@@ -9,11 +9,11 @@ export default class TextService {
   @Inject()
   private repository: TextRepository
 
-  public async getText(id: number) {
+  public getText (id: number) {
     return this.repository.one(id)
   }
 
-  public async nextLevel(text: Translate): Promise<Translate> {
+  public async nextLevel (text: Translate): Promise<Translate> {
     const newtext = await this.repository.nextLevel(text)
     store.commit('setTexts', newtext)
     return newtext

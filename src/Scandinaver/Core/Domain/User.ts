@@ -23,14 +23,14 @@ export class User implements IUser {
   plan!: IPlan
   cardsCreated: number
 
-  constructor(id: number, email: string, login: string, avatar: string) {
+  constructor (id: number, email: string, login: string, avatar: string) {
     this.id = id
     this.email = email
     this.login = login
     this.avatar = avatar
   }
 
-  getFavouriteAsset(): Asset {
+  getFavouriteAsset (): Asset {
     return store.getters.favouriteAsset
   }
 }

@@ -4,10 +4,10 @@
       <!-- nuxt-link.el-menu-item(tag="li" to="/") Главная -->
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'languages'}" tag="li") {{$t('navMenu.languages')}}
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'price'}" tag="li") {{$t('navMenu.price')}}
-      li.el-menu-item(v-show="!loggiedIn" @click="openLoginModal") {{$t('signIn')}}
-      li.el-menu-item(v-show="!loggiedIn" @click="openRegistrationModal") {{$t('registration')}}
-      li.el-menu-item(v-show="loggiedIn"  @click="logout") {{$t('signOut')}}
-      li(v-show="loggiedIn")
+      li.el-menu-item(v-show="!loggedIn" @click="openLoginModal") {{$t('signIn')}}
+      li.el-menu-item(v-show="!loggedIn" @click="openRegistrationModal") {{$t('registration')}}
+      li.el-menu-item(v-show="loggedIn"  @click="logout") {{$t('signOut')}}
+      li(v-show="loggedIn")
         el-avatar(:size="40" :src="avatar")
 </template>
 
@@ -15,26 +15,26 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
-  name: 'TopMenu',
+  name: 'TopMenu'
 })
 export default class TopMenu extends Vue {
-  get loggiedIn() {
+  get loggedIn () {
     return this.$auth.loggedIn
   }
 
-  get avatar() {
+  get avatar () {
     return this.$auth.user?.avatar
   }
 
-  openLoginModal() {
+  openLoginModal () {
     this.$eventHub.$emit('openLoginModal')
   }
 
-  openRegistrationModal() {
+  openRegistrationModal () {
     this.$eventHub.$emit('openRegistrationModal')
   }
 
-  logout() {
+  logout () {
     this.$auth.logout()
   }
 }

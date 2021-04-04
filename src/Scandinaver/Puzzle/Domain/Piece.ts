@@ -3,12 +3,12 @@ import { Entity } from '~/src/Scandinaver/Core/Domain/Contract/Entity'
 export default class Piece extends Entity {
   word: string
 
-  constructor(word: string) {
-    super();
+  constructor (word: string) {
+    super()
     this.word = word
   }
 
-  getId(): string {
+  getId (): string {
     return this.word
   }
 }

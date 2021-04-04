@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import userAPI, { ILoginData } from '~/api/userAPI'
 
 export class LoginService {
-  public static execute(payload: any): Promise<AxiosResponse<ILoginData>> {
+  public static execute (payload: any): Promise<AxiosResponse<ILoginData>> {
     return new Promise((resolve, reject) => {
       userAPI.login(payload).then(
         (response) => {
@@ -14,12 +14,12 @@ export class LoginService {
         },
         (response) => {
           reject(response.response.data.message)
-        },
+        }
       )
     })
   }
 
-  public static logout() {
+  public static logout () {
     return userAPI.logout()
   }
 }

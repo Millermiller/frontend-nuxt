@@ -11,7 +11,7 @@ export class Translate implements Entity {
   synonyms: any[]
   extra: any[]
 
-  getId(): number {
+  getId (): number {
     return this.id
   }
 }

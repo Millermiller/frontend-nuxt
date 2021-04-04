@@ -1,8 +1,12 @@
 <template>
   <el-row>
     <el-col :span="12" :xs="24">
-      <h2 class="section-heading">{{title}}</h2>
-      <p class="lead">{{description}}</p>
+      <h2 class="section-heading">
+        {{ $tc('blocks.puzzle.title') }}
+      </h2>
+      <p class="lead">
+        {{ $tc('blocks.puzzle.description') }}
+      </p>
     </el-col>
     <el-col
       :span="10"
@@ -11,34 +15,37 @@
       data-aos="fade-left"
       data-aos-offset="10"
       data-aos-delay="100"
-      data-aos-duration="1000">
-      <div class="row" id="puzzle_view" v-cloak>
-        <div class="cov-progress" :style="{width: progress + '%'}"></div>
+      data-aos-duration="1000"
+    >
+      <div v-cloak id="puzzle_view" class="row">
+        <div class="cov-progress" :style="{width: progress + '%'}" />
         <div class="col-lg-12">
           <h3 class="text-center">
-            {{translate}}
+            {{ translate }}
             <i
-              @click="refresh(puzzle)"
               :class="[
                 'el-icon-refresh-right pointer',
-                {'rotating': isRotate}]">
-            </i>
+                {'rotating': isRotate}]"
+              @click="refresh(puzzle)"
+            />
           </h3>
         </div>
         <div class="col-lg-12 drop-wrapper">
           <drop
-            :class="['drop', 'list', zone.class]"
             v-for="(zone, index) in dropZones"
             :key="index"
+            :class="['drop', 'list', zone.class]"
             @drop="handleDrop(zone, ...arguments)"
             @dragenter="handleDragEnter(zone, ...arguments)"
-            @dragleave="handleDragLeave(zone, ...arguments)">
+            @dragleave="handleDragLeave(zone, ...arguments)"
+          >
             <transition name="bounce">
               <drag
+                v-for="(item, i) in zone.content"
+                :key="i"
                 class="drag"
-                v-for="(item, index) in zone.content"
-                :key="index"
-                :transfer-data="{ zone: zone, item: item, list: zone.content}">
+                :transfer-data="{ zone: zone, item: item, list: zone.content}"
+              >
                 {{ item.word }}
               </drag>
             </transition>
@@ -47,28 +54,29 @@
         <div class="col-lg-12">
           <p class="text-center">
             разместите слова в правильном порядке
-            <i class="el-icon-d-caret"></i>
+            <i class="el-icon-d-caret" />
           </p>
         </div>
         <div class="col-lg-12">
           <drop
             v-if="puzzle.pieces"
             :class="[
-                    'drop-wrapper',
-                    { 'gray-bordered': puzzle.pieces.count() > 0 },
-                  ]"
+              'drop-wrapper',
+              { 'gray-bordered': puzzle.pieces.count() > 0 },
+            ]"
             @drop="handleBackDrop(puzzle.pieces, ...arguments)"
           >
             <drag
-              class="drag elem"
               v-for="item in puzzle.pieces.all()"
               :key="item.word"
+              class="drag elem"
               :transfer-data="{
-                      item: item,
-                      list: puzzle.pieces.all(),
-                      example: 'lists',
-                    }"
-            >{{ item.word }}
+                item: item,
+                list: puzzle.pieces.all(),
+                example: 'lists',
+              }"
+            >
+              {{ item.word }}
             </drag>
           </drop>
         </div>
@@ -85,10 +93,9 @@ import { Puzzle } from '~/src/Scandinaver/Puzzle/Domain/Puzzle'
 
 @Component({
   name: 'PuzzleComponent',
-  components: { RadialProgressBar },
+  components: { RadialProgressBar }
 })
 export default class PuzzleComponent extends Vue {
-
   private service: PuzzleService = new PuzzleService()
 
   public puzzle: Puzzle = new Puzzle()
@@ -96,21 +103,18 @@ export default class PuzzleComponent extends Vue {
   public dropZones: {}[] = []
   public success: number = 0
   public isRotate: boolean = false
-
-  private title: string = 'Словарные паззлы'
-  private description: string = 'Разместите слова в правильном порядке.'
   private translate: string = 'Вдруг она увидела белого кролика'
   private sentence: string = 'skyndilega hún sá á hvíta kanínu'
   private progress: number = 0
   private wordsCount: number = 0
 
-  mounted() {
+  mounted () {
     this.puzzle.text = this.translate
     this.puzzle.translate = this.sentence
     this.createPuzzle(this.puzzle)
   }
 
-  async createPuzzle(puzzle: Puzzle) {
+  async createPuzzle (puzzle: Puzzle) {
     this.puzzle = this.service.create(puzzle)
     puzzle.active = true
     this.success = 0
@@ -123,12 +127,12 @@ export default class PuzzleComponent extends Vue {
       this.dropZones.push({
         for: this.words[i],
         content: [],
-        class: 'dragover',
+        class: 'dragover'
       })
     }
   }
 
-  handleDrop(toList: any, data: any) {
+  handleDrop (toList: any, data: any) {
     const fromList = data.list
 
     if (data.item.word === toList.for) {
@@ -141,7 +145,7 @@ export default class PuzzleComponent extends Vue {
     }
   }
 
-  handleBackDrop(toList: any, data: any) {
+  handleBackDrop (toList: any, data: any) {
     const fromList = data.list
     if (data.zone) {
       toList.add(data.item)
@@ -152,17 +156,17 @@ export default class PuzzleComponent extends Vue {
     }
   }
 
-  handleDragEnter(ev: any, data: any) {
+  handleDragEnter (ev: any, data: any) {
     ev.class = 'dragenter'
   }
 
-  handleDragLeave(ev: any, data: any) {
+  handleDragLeave (ev: any, data: any) {
     if (!ev.content.length) {
       ev.class = 'dragover'
     }
   }
 
-  async refresh(puzzle: Puzzle) {
+  async refresh (puzzle: Puzzle) {
     this.isRotate = true
     await this.createPuzzle(puzzle)
     setTimeout(() => {
@@ -195,26 +199,28 @@ h2 {
   h3 {
     padding: 5px;
   }
+  .drop-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px 0;
+    .drop {
+      background: #fff;
+      border: 1px solid #ccc;
+      height: 50px;
+      min-width: 50px;
+      margin: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      position: relative;
+      text-align: center;
+      vertical-align: top;
+    }
+
+  }
 }
-.drop-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 5px 0;
-}
-.drop {
-  background: #fff;
-  border: 1px solid #ccc;
-  height: 50px;
-  min-width: 50px;
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: sans-serif;
-  position: relative;
-  text-align: center;
-  vertical-align: top;
-}
+
 .drag {
   font-family: sans-serif;
   position: relative;
@@ -223,6 +229,7 @@ h2 {
   padding: 5px 10px;
   cursor: grab;
 }
+
 .dragenter {
   border-color: #20a0ff;
 }

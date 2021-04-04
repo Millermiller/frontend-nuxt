@@ -9,5 +9,5 @@ export const user = new Module({
   state: State,
   getters: UserGetters,
   mutations: UserMutations,
-  actions: UserActions,
+  actions: UserActions
 })

@@ -9,5 +9,5 @@ export const test = new Module({
   state: State,
   getters: TestGetters,
   mutations: TestMutations,
-  actions: TestActions,
+  actions: TestActions
 })

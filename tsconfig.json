@@ -32,7 +32,8 @@
       "reflect-metadata",
       "@types/node",
       "@nuxt/types",
-      "@types/nuxtjs__auth"
+      "@types/nuxtjs__auth",
+      "nuxt-i18n"
     ]
   },
   "exclude": [

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import {version} from '../package.json';
+import { version } from '../package.json'
   @Component({
     name: 'Footer'
   })

@@ -12,7 +12,7 @@ export class Word implements IWord {
   word!: string
   user: User
 
-  constructor(word: string) {
+  constructor (word: string) {
     this.word = word
   }
 }

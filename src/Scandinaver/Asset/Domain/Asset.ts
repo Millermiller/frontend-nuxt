@@ -9,6 +9,7 @@ export class Asset {
   level: number
   @Type(() => Card)
   cards: Card[]
+
   result: number
   selected?: boolean
 }

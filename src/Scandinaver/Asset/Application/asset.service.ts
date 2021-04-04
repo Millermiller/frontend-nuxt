@@ -10,7 +10,7 @@ export default class AssetService {
   @Inject()
   private repository: AssetRepository
 
-  public async getAsset(assetId: number): Promise<Asset> {
+  public async getAsset (assetId: number): Promise<Asset> {
     const asset = await this.repository.one(assetId)
     store.commit(SET_SELECTION, assetId)
     // @ts-ignore
@@ -18,7 +18,7 @@ export default class AssetService {
     return asset
   }
 
-  public async updateAsset(asset: Asset, data: any) {
+  public async updateAsset (asset: Asset, data: any) {
     await this.repository.update(asset, data)
     // store.commit(PATCH_PERSONAL, { asset: response.data, index: this.index })
     if (asset.selected) {
@@ -26,7 +26,7 @@ export default class AssetService {
     }
   }
 
-  public async destroyAsset(asset: Asset) {
+  public async destroyAsset (asset: Asset) {
     await this.repository.delete(asset)
     await store.dispatch(types.RELOAD_PERSONAL_ASSETS)
   }

@@ -22,8 +22,8 @@
             li.pointer(v-for="(variant, index) in variants.data", @click="check(variant)")
               span.counter {{ index + 1 }}. {{variant.text}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
-      h2.section-heading {{title}}
-      p.lead {{description}}
+      h2.section-heading {{$tc('blocks.test.title')}}
+      p.lead {{$tc('blocks.test.description')}}
 </template>
 
 <script lang="ts">
@@ -34,13 +34,9 @@ import { Collection } from '~/models/Collection'
 
 @Component({
   name: 'Test',
-  components: { RadialProgressBar },
+  components: { RadialProgressBar }
 })
 export default class Test extends Vue {
-  private title: string = 'Новые уровни'
-  private description: string =
-    'Проверяйте свои знания и открывайте новые словари, проходя тесты.'
-
   private cards: any[] = []
   private translates: Collection = new Collection([]) // массив всех translates
   private quantity: number = 0 // количество вопросов
@@ -57,15 +53,15 @@ export default class Test extends Vue {
   private loading: boolean = false
   private error: boolean = false
 
-  mounted() {
+  mounted () {
     this.getAsset()
   }
 
-  reload() {
+  reload () {
     this.getAsset()
   }
 
-  getAsset() {
+  getAsset () {
     this.cards = cardsArray.slice()
     this.loading = true
     this.quantity = this.cards.length
@@ -83,7 +79,7 @@ export default class Test extends Vue {
     this.error = false
   }
 
-  check(variant: any) {
+  check (variant: any) {
     this.answers++
     this.progress = Math.floor((this.answers * 100) / this.quantity)
     if (variant.correct) {
@@ -99,7 +95,7 @@ export default class Test extends Vue {
     }
   }
 
-  next() {
+  next () {
     if (this.cards.length > 0) {
       this.createTest()
     } else {
@@ -107,16 +103,16 @@ export default class Test extends Vue {
       this.variants = new Collection([])
       this.progress = 100
       const self = this
-      setTimeout(function() {
+      setTimeout(function () {
         self.result = self.success
       }, 1000)
     }
   }
 
-  createTest() {
+  createTest () {
     this.question = this.cards.pop()
     this.variants = new Collection([
-      { text: this.question.value, correct: true },
+      { text: this.question.value, correct: true }
     ])
     const indexes: any = []
     const translates = new Collection(this.translates.data)
@@ -143,12 +139,6 @@ export default class Test extends Vue {
 h2 {
   border-bottom: 1px solid #777;
   margin-bottom: 10px;
-}
-#puzzle_view {
-  margin-top: 20px;
-}
-#slider_view {
-  margin-top: 20px;
 }
 #test_view {
   position: relative;

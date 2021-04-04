@@ -4,12 +4,12 @@ export default class Translate extends Entity {
   id?: number
   value: string
 
-  constructor(value: string) {
+  constructor (value: string) {
     super()
     this.value = value
   }
 
-  getId(): any {
+  getId (): any {
     return this.id
   }
 }

@@ -9,7 +9,7 @@ import {
   SET_FAVOURITES,
   SET_PERSONAL,
   SET_SENTENCES,
-  SET_WORDS,
+  SET_WORDS
 } from '@/Scandinaver/Asset/Infrastructure/store/asset/mutations.type'
 import { API } from '@/Scandinaver/Core/Infrastructure/api/commonAPI'
 import { plainToClass } from 'class-transformer'
@@ -37,38 +37,38 @@ class State {
     test: false,
     cards: false,
     texts: false,
-    text: false,
+    text: false
   }
 }
 
 // Getters
 // Extend 'Getters' class with 'FooState' type
 class CommonGetters extends Getters<State> {
-  get fullscreenLoading(): boolean {
+  get fullscreenLoading (): boolean {
     return this.state.fullscreenLoading
   }
 
-  get sites() {
+  get sites () {
     return this.state.sites
   }
 
-  get currentsite() {
+  get currentsite () {
     return this.state.currentsite
   }
 
-  get backdrop() {
+  get backdrop () {
     return this.state.backdrop
   }
 
-  get rightMenuOpen() {
+  get rightMenuOpen () {
     return this.state.rightMenuOpen
   }
 
-  get showDictionary() {
+  get showDictionary () {
     return this.state.showDictionary
   }
 
-  intro(id: number) {
+  intro (id: number) {
     return this.state.intro[id]
   }
 
@@ -76,7 +76,7 @@ class CommonGetters extends Getters<State> {
     // return this.state.introNeed[id]
   }
 
-  get language(): string {
+  get language (): string {
     return this.state.language
   }
 }
@@ -84,41 +84,41 @@ class CommonGetters extends Getters<State> {
 // Mutations
 // Extend 'Mutations' class with 'FooState' type
 class CommonMutations extends Mutations<State> {
-  setInfo(info: any): void {
+  setInfo (info: any): void {
     this.state.info = info
   }
 
-  setFullscreenLoading(loading: boolean): void {
+  setFullscreenLoading (loading: boolean): void {
     this.state.fullscreenLoading = loading
   }
 
-  showDictionary(): void {
+  showDictionary (): void {
     this.state.showDictionary = true
   }
 
   // setIntroVisibility = ({data}: { data: any }) => this.state.introNeed[data.page] = data.visible
 
-  setBackdrop(data: number): void {
+  setBackdrop (data: number): void {
     this.state.backdrop = data
   }
 
-  setMenuOpen(data: boolean): void {
+  setMenuOpen (data: boolean): void {
     this.state.rightMenuOpen = data
   }
 
-  setSites(sites: any) {
+  setSites (sites: any) {
     this.state.sites = sites
   }
 
-  setCurrentSite(site: any) {
+  setCurrentSite (site: any) {
     this.state.currentsite = site
   }
 
-  setDomain(domain: string) {
+  setDomain (domain: string) {
     this.state.domain = domain
   }
 
-  setLanguage(language: string) {
+  setLanguage (language: string) {
     this.state.language = language
   }
 }
@@ -129,14 +129,14 @@ class CommonActions extends Actions<State, CommonGetters, CommonMutations, Commo
   textstore!: Context<typeof text>
   puzzleStore!: Context<typeof puzzleModule>
 
-  $init(store: Store<any>): void {
+  $init (store: Store<any>): void {
     this.userstore = user.context(store)
     this.assetstore = assetModule.context(store)
     this.textstore = text.context(store)
     this.puzzleStore = puzzleModule.context(store)
   }
 
-  reloadStore() {
+  reloadStore () {
     CommonAPI.getState().then((response) => {
       this.assetstore.commit(SET_WORDS, response.data.words)
       this.assetstore.commit(SET_SENTENCES, response.data.sentences)
@@ -150,12 +150,11 @@ class CommonActions extends Actions<State, CommonGetters, CommonMutations, Commo
     })
   }
 
-  toggleBackdrop() {
-    if (this.state.backdrop === 0 && this.state.rightMenuOpen) this.commit('setBackdrop', 1)
-    else this.commit('setBackdrop', 0)
+  toggleBackdrop () {
+    if (this.state.backdrop === 0 && this.state.rightMenuOpen) { this.commit('setBackdrop', 1) } else { this.commit('setBackdrop', 0) }
   }
 
-  toggleMenuOpen() {
+  toggleMenuOpen () {
     this.commit('setMenuOpen', false)
   }
 }
@@ -172,6 +171,6 @@ export const root = new Module({
     assetModule,
     text,
     test,
-    puzzleModule,
-  },
+    puzzleModule
+  }
 })
