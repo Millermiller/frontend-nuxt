@@ -1,14 +1,30 @@
 module.exports = {
-  apps: [
-    {
-      name: 'nuxt-dev',
-      script: 'npm',
-      args: 'run dev'
+  apps: [{
+    name: 'API',
+    script: './.nuxt/App.js',
+
+    // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
+    args: 'one two',
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    env: {
+      NODE_ENV: 'development'
     },
-    {
-      name: 'nuxt-prod',
-      script: 'npm',
-      args: 'run start'
+    env_production: {
+      NODE_ENV: 'production'
     }
-  ]
+  }],
+
+  deploy: {
+    production: {
+      user: 'node',
+      host: '212.83.163.1',
+      ref: 'origin/master',
+      repo: 'git@github.com:repo.git',
+      path: '/var/www/production',
+      'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
+    }
+  }
 }
