@@ -40,10 +40,15 @@ export default class TopMenu extends Vue {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .el-menu-head {
   display: flex;
   justify-content: flex-end;
+  background-color: #1d1e26 !important;
+  border: none;
+  .el-menu-item {
+      color: #fff;
+  }
 }
 .el-avatar.el-avatar--circle {
   margin-top: 10px;

@@ -17,7 +17,8 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'Head'
 })
 export default class HeadComponent extends Vue {
-  private imageSrc: string = require('@/assets/head-bg.jpg')
+  private imageSrc: string = require('~/assets/head-bg-4.jpg')
+  private logoSrc: string = require('~/assets/1.svg')
 }
 </script>
 
@@ -39,15 +40,35 @@ export default class HeadComponent extends Vue {
   }
   .intro-message {
     color: rgb(255, 255, 255);
-    padding: 300px 20%;
+    padding: 100px 20px;
     z-index: 1000;
     h1 {
-      border-bottom: 1px solid;
+      font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 200;
       margin-bottom: 10px;
       margin-right: 10%;
+      margin-left: 5%;
+      color: #333;
+      font-size: 48px;
+      position: relative;
+      &:before {
+        background-image: url('~assets/1.svg');
+        width: 42px;
+        height: 40px;
+        content: '';
+        display: inline-block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 16px;
+        left: -50px;
+      }
     }
     p {
-      font-size: 16px
+      font-size: 14px;
+      text-align: right;
+      margin-top: 440px;
     }
   }
 }
