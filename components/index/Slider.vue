@@ -98,6 +98,7 @@ h2 {
 .swiper-slide {
   overflow: hidden;
   text-align: center;
+  border: 1px solid #dadada;
   font-size: 16px;
   background: #fff;
   display: -webkit-box;
@@ -114,9 +115,6 @@ h2 {
   align-items: center;
 }
 .swiper-slide-active {
-  -webkit-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.75);
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.75);
   transform: translate3d(0, 0, 0) rotateX(0) rotateY(0) !important;
 }
 .slide {
@@ -141,7 +139,6 @@ h2 {
 .translate-area {
   position: relative;
   min-height: 80%;
-  border: 1px solid #dadada;
   display: flex;
   align-items: center;
   align-content: center;
@@ -173,13 +170,13 @@ h2 {
 }
 .playicon {
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   right: 15px;
   font-size: 30px;
 }
 .favourite-button {
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   left: 15px;
   font-size: 30px;
   &:hover {

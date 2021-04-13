@@ -1,10 +1,10 @@
 <template lang="pug">
-  el-container
+  el-container(style="height: 100%;")
     el-header
       TopMenu
     el-main
       nuxt
-    el-footer
+    el-footer(:height="'60px'")
       Footer
     Scroller
     LoginForm(:visible="loginFormVisible")
@@ -52,7 +52,7 @@ export default class DefaultLayout extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;

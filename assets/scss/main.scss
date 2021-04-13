@@ -1,17 +1,33 @@
+@import "variables";
 @keyframes loading-rotate {
   100% {
     transform: rotate(360deg);
   }
 }
+html {
+  height: 100%;
+}
 body {
+  display: grid;
   margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
   background-color: #eeeeee;
   font-family: 'Open Sans', sans-serif;
   color: #777;
+  min-height: 100%;
+}
+#__layout {
+  display: unset;
+}
+#__layout > div {
+  background-color: orangered;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+[aria-live="polite"] {
+  display: none;
 }
 .pointer {
   cursor: pointer;
@@ -62,14 +78,12 @@ header.el-header {
   }
   .page-container {
     padding: 50px 0;
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
   }
 }
 .lead {
   font-size: 18px;
   font-weight: 400;
-  color: #777;
+  color: $lead-text-color;
   margin-bottom: 20px;
   line-height: 1.4;
 }
@@ -97,14 +111,12 @@ header.el-header {
 }
 .section-light {
   z-index: 10;
-  padding: 50px 0;
+  padding: 20px 0;
   background-color: #fff;
 }
 .section-dark {
-  padding: 50px 0;
-  border-top: 1px solid #e7e7e7;
-  border-bottom: 1px solid #e7e7e7;
-  background-color: #f8f8f8;
+  padding: 20px 0;
+  background-color: #fbfcfd;
   z-index: 1;
 }
 .text-center {
@@ -125,6 +137,9 @@ a {
 }
 .el-menu-head {
   padding: 0 10px;
+}
+.el-avatar > img {
+  width: 100%;
 }
 @media screen and (max-width: 640px) {
   .el-container {

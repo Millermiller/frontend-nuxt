@@ -191,7 +191,7 @@ export default class TextComponent extends Vue {
 </script>
 
 <style lang="scss">
-@import '../../assets/css/variables';
+@import '../../assets/scss/variables';
 
 h2 {
   border-bottom: 1px solid #777;

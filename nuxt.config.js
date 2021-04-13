@@ -2,7 +2,11 @@ import { messages } from '~/locales/ru.json'
 require('dotenv').config()
 
 module.exports = {
-
+  server: {
+    // nuxt.js server options ( can be overrided by environment variables )
+    port: 8000,
+    host: 'scandinaver.local'
+  },
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/dotenv'
@@ -54,6 +58,12 @@ module.exports = {
         tokenRequired: true
       }
     },
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/',
+      callback: '/'
+    },
     cookie: {
       prefix: 'authfrontend.',
       options: {
@@ -81,7 +91,7 @@ module.exports = {
     'element-ui/lib/theme-chalk/index.css',
     'swiper/dist/css/swiper.css',
     'aos/dist/aos.css',
-    '@assets/css/main.scss'
+    '@assets/scss/main.scss'
   ],
 
   /*

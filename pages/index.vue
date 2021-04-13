@@ -92,4 +92,8 @@ export default class extends Vue {
 .links {
   padding-top: 15px;
 }
+
+.is-vertical {
+
+}
 </style>

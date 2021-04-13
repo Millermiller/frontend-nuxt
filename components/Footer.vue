@@ -19,7 +19,7 @@ import { version } from '../package.json'
     name: 'Footer'
   })
 export default class Footer extends Vue {
-  private copyright: string = 'Copyright © Scandinaver 2020 | All Rights Reserved | support@scandinaver.org | '
+  private copyright: string = 'Copyright © Scandinaver 2020 | support@scandinaver.org | '
   private version: string = `v.${version}`
   private ivonaLogo: string = require('@/assets/ivona_tts_amzn.png')
   private forvoLogo: string = require('@/assets/forvo-logo.png')
@@ -27,14 +27,12 @@ export default class Footer extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@import "assets/scss/variables";
   .el-footer{
-    height: 60px;
-    padding: 10px 20px;
-  }
-  footer.el-footer .el-image{
-    height: 40px;
-    padding: 5px;
-    margin: 10px;
+    .el-image{
+      height: 40px;
+      padding: 5px;
+    }
   }
 </style>
