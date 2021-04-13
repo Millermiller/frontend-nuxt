@@ -29,7 +29,7 @@
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.17.0",
     "nuxt-typed-vuex": "^0.1.16",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-load": "^2.0.12",
     "pug-plain-loader": "^1.0.0",
     "reflect-metadata": "^0.1.13",
