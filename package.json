@@ -5,7 +5,7 @@
   "author": "john <day_at_the_way@mail.ru>",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development nuxt-ts --host scandinaver.local --port 3333",
+    "dev": "NODE_ENV=development nuxt-ts",
     "build": "nuxt-ts build",
     "build prod": "nuxt-ts build --mode production",
     "generate": "nuxt-ts generate",
@@ -17,7 +17,7 @@
     "@inotom/vue-go-top": "^1.2.0",
     "@nuxt/typescript-runtime": "^0.3.8",
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.9.5",
+    "@nuxtjs/axios": "5.12.1",
     "@nuxtjs/toast": "^3.3.0",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "aos": "^2.3.4",

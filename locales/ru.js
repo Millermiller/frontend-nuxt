@@ -7,7 +7,7 @@ export default {
   login: 'Логин',
   loginOrEmail: 'Логин или email',
   password: 'Пароль',
-  confirmPassword: 'Пароль еще рвз',
+  confirmPassword: 'Пароль еще раз',
   email: 'Email',
   mainText: '"Я изучаю исландский язык не для того, чтобы научиться политике, приобрести военные знания и' +
     '  т. п., <br/> ' +
@@ -63,5 +63,19 @@ export default {
     personal: 'Создание персональных наборов',
     mobile: 'Мобильное приложение'
   },
-  select: 'Выбрать'
+  select: 'Выбрать',
+  profile: 'Профиль',
+  information: 'Информация',
+  history: 'История',
+  settings: 'Настройки',
+  photoUpdated: 'Фотография профиля изменена',
+  upload: 'Загрузить',
+  clear: 'Очистить',
+  save: 'Сохранить',
+  cancel: 'Отмена',
+  photo: 'Фото',
+  account: 'Аккаунт',
+  error: 'Ошибка',
+  settingsUpdated: 'Настройки обновлены',
+  notifications: 'Уведомления'
 }

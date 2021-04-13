@@ -1,2 +1,4 @@
 
-{ "extends": "@nuxtjs/eslint-config-typescript", "rules": {"vue/max-attributes-per-line": 0} }
+{ "extends": "@nuxtjs/eslint-config-typescript", "rules": {
+  "vue/max-attributes-per-line": 0,
+  "@typescript-eslint/no-unused-vars":  "off"} }

@@ -1,14 +1,16 @@
 <template lang="pug">
   div
     el-menu.el-menu-head(mode="horizontal")
-      <!-- nuxt-link.el-menu-item(tag="li" to="/") Главная -->
+      nuxt-link.el-menu-item.home-link(tag="li" to="/" v-if="showHomeLink") Scandinaver
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'languages'}" tag="li") {{$t('navMenu.languages')}}
       nuxt-link.el-menu-item(:to="{path: '/', hash: 'price'}" tag="li") {{$t('navMenu.price')}}
       li.el-menu-item(v-show="!loggedIn" @click="openLoginModal") {{$t('signIn')}}
       li.el-menu-item(v-show="!loggedIn" @click="openRegistrationModal") {{$t('registration')}}
-      li.el-menu-item(v-show="loggedIn"  @click="logout") {{$t('signOut')}}
+      nuxt-link.el-menu-item(tag="li" to="/profile" v-if="loggedIn") {{$t('profile')}}
       li(v-show="loggedIn")
-        el-avatar(:size="40" :src="avatar")
+        NuxtLink(to="/profile")
+          el-avatar(:size="40" :src="avatar")
+      li.el-menu-item(v-show="loggedIn"  @click="logout") {{$t('signOut')}}
 </template>
 
 <script lang="ts">
@@ -18,7 +20,11 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'TopMenu'
 })
 export default class TopMenu extends Vue {
-  get loggedIn () {
+  get showHomeLink (): boolean {
+    return this.$nuxt.$route.path !== '/'
+  }
+
+  get loggedIn (): boolean {
     return this.$auth.loggedIn
   }
 
@@ -46,8 +52,32 @@ export default class TopMenu extends Vue {
   justify-content: flex-end;
   background-color: #1d1e26 !important;
   border: none;
+  .el-menu-item:focus {
+    color: #fff;
+    background-color: #1d1e26 !important;
+  }
   .el-menu-item {
-      color: #fff;
+    color: #fff;
+    &.home-link {
+      margin-right: auto;
+      position: relative;
+      &:before {
+        background-image: url('~assets/2.svg');
+        width: 20px;
+        height: 20px;
+        content: '';
+        display: inline-block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 22px;
+        left: -5px;
+      }
+      &:hover, &:focus {
+        color: #fff;
+        background-color: #1d1e26 !important;
+      }
+    }
   }
 }
 .el-avatar.el-avatar--circle {

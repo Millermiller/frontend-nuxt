@@ -20,7 +20,7 @@
               el-button(@click="getAsset") еще раз
           ul.variants(v-if="question.word")
             li.pointer(v-for="(variant, index) in variants.data", @click="check(variant)")
-              span.counter {{ index + 1 }}. {{variant.text}}
+              span.counter {{variant.text}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading {{$tc('blocks.test.title')}}
       p.lead {{$tc('blocks.test.description')}}
@@ -144,7 +144,6 @@ h2 {
   position: relative;
   height: 380px;
   border: 1px solid #d1dbe5;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
   transition: 0.3s;
   overflow: hidden;
@@ -165,13 +164,14 @@ h2 {
 .variants {
   list-style: none;
   padding: 0;
+  width: 100%;
   li {
-    padding: 10px 10px;
+    padding: 15px 10px;
     margin: 0;
     font-size: 16px;
     color: #777;
     position: relative;
-    text-align: left;
+    text-align: center;
     > .counter {
       font-size: 18px;
       &:hover {

@@ -1,5 +1,4 @@
 import IPlan from '@/Scandinaver/Core/Domain/Plan'
-import { store } from '@/Scandinaver/Core/Infrastructure/store'
 import { Asset } from '@/Scandinaver/Asset/Domain/Asset'
 
 export interface IUser {
@@ -31,6 +30,6 @@ export class User implements IUser {
   }
 
   getFavouriteAsset (): Asset {
-    return store.getters.favouriteAsset
+    return new Asset()
   }
 }

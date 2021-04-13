@@ -61,8 +61,7 @@
           <drop
             v-if="puzzle.pieces"
             :class="[
-              'drop-wrapper',
-              { 'gray-bordered': puzzle.pieces.count() > 0 },
+              'drop-wrapper'
             ]"
             @drop="handleBackDrop(puzzle.pieces, ...arguments)"
           >
@@ -177,6 +176,8 @@ export default class PuzzleComponent extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "assets/scss/variables";
+
 @keyframes bounce-in {
   0% {
     transform: scale(0);
@@ -189,11 +190,11 @@ export default class PuzzleComponent extends Vue {
   }
 }
 h2 {
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid $border-color;
   margin-bottom: 10px;
 }
 #puzzle_view {
-  border: 1px solid #e7e7e7;
+  border: 1px solid $border-color;
   padding: 10px;
   min-height: 290px;
   h3 {
@@ -205,7 +206,7 @@ h2 {
     margin: 5px 0;
     .drop {
       background: #fff;
-      border: 1px solid #ccc;
+      border: 1px solid $border-color;
       height: 50px;
       min-width: 50px;
       margin: 5px;
@@ -217,31 +218,25 @@ h2 {
       text-align: center;
       vertical-align: top;
     }
-
+    .drag {
+      padding: 10px;
+      position: relative;
+      text-align: center;
+      vertical-align: top;
+      cursor: grab;
+      &.elem {
+        background: $body-background;
+        border: 1px solid $border-color;
+        padding: 15px 20px;
+        margin: 5px;
+      }
+    }
+    .dragenter {
+      background: $body-background;
+    }
   }
 }
 
-.drag {
-  font-family: sans-serif;
-  position: relative;
-  text-align: center;
-  vertical-align: top;
-  padding: 5px 10px;
-  cursor: grab;
-}
-
-.dragenter {
-  border-color: #20a0ff;
-}
-.gray-bordered {
-  border: 1px solid #e7e7e7;
-}
-.drag.elem {
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 5px;
-}
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
