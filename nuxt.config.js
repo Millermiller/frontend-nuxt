@@ -1,4 +1,3 @@
-import { messages } from '~/locales/ru.json'
 require('dotenv').config()
 
 module.exports = {
