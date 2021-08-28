@@ -7,18 +7,18 @@
         textarea#transarea.panel(style="height: 100px",
             placeholder="Поле для перевода",
             v-model="inputStream",
-            @input="findPosition",
-            @click="findPosition",
+            @input="findPosition($event)",
+            @click="findPosition($event)",
         )
         el-button.pull-right(:plain="true" @click="clear") Очистить
       el-collapse
         el-collapse-item(title="Помощь" name="helpblock")
-          template(v-for="(extra, index) in text.extra")
+          template(v-for="(tooltip, index) in textEntity.tooltips")
             el-col(:span="12", :key="index")
-              p.pointer(v-on:mouseover="showExtra(extra)" v-on:mouseout="clearExtra")
+              p.pointer(v-on:mouseover="showTooltip(tooltip)" v-on:mouseout="clearTooltip")
                 span
-                  span.text-danger {{extra.orig}}
-                  span &nbsp; - {{extra.extra}}
+                  span.text-danger {{tooltip.object}}
+                  span &nbsp; - {{tooltip.value}}
     el-col(:span="10", :offset="2", :xs="{span: 24, offset: 0}")
       h2.section-heading {{$tc('blocks.text.title')}}
       p.lead {{$tc('blocks.text.description')}}
@@ -26,64 +26,50 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { BehaviorSubject, Subject } from 'rxjs'
-import { text } from '~/assets/text'
-import { syns } from '~/assets/syns'
+import { BehaviorSubject, from, Observable, ObservedValueOf, Subject } from 'rxjs'
+import { plainToClass } from 'class-transformer'
+import DictionaryItem from '../../models/DictionaryItem'
+import Synonym from '../../models/Synonym'
+import Tooltip from '../../models/Tooltip'
 import { Translate } from '~/models/Translate'
+import * as textData from '~/assets/text.example.json'
 
 @Component({
   name: 'TextComponent'
 })
 export default class TextComponent extends Vue {
-  private text: Translate = new Translate()
+  private textEntity: Translate = new Translate()
 
+  private showedTooltip: string = ''
+  private length: number = 0
+  public loading: boolean = false
   private inputStream: string = ''
-  private input: Subject<string> = new Subject<string>()
+  public input: Subject<string> = new Subject<string>()
   private textSequence: {
     text: string
     selected: boolean
     progress: number
   }[] = [{ text: '', selected: false, progress: 0 }]
 
-  private inputSequence: string[] = []
   private inputObservables: Subject<{ index: number; parts: string[] }>[] = []
+  private outputObservables: Observable<ObservedValueOf<string>>[] = []
   private currentSentenceSubject: BehaviorSubject<number> = new BehaviorSubject<
     number
-  >(0)
-
-  private showedExtra: string = ''
-  private length: number = 0
-  private dictionary: any = []
+    >(0)
 
   @Watch('inputStream')
-  private onInputChanged (val: string) {
+  private onInputChanged (val: string): void {
     this.input.next(val)
   }
 
-  @Watch('progress')
-  private onChange (progress: any) {
-    if (progress > 90) {
-      this.$notify.success({
-        title: this.text.title,
-        message: 'translateComplete',
-        duration: 3000
-      })
-    }
+  async mounted() {
+    await this.load()
   }
 
-  get progress (): number {
-    const count = this.textSequence.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.progress,
-      0
-    )
-    return Math.floor((count * 100) / this.length)
-  }
-
-  created () {
+  created() {
     this.input.subscribe((data) => {
-      this.inputSequence = this.inputStream.split('.')
       const index = this.currentSentenceSubject.getValue()
-      const parts = this.inputSequence[index].split(' ')
+      const parts = this.inputStream.split('.')[index].split(' ')
       if (index <= this.textSequence.length - 1) {
         this.inputObservables[index].next({ index, parts })
       }
@@ -97,11 +83,85 @@ export default class TextComponent extends Vue {
         this.textSequence[data].selected = true
       }
     })
-
-    this.loadText()
   }
 
-  get output (): string {
+  load() {
+    this.textEntity = plainToClass(Translate, textData.default)
+    this.textEntity.dictionary.map((item: DictionaryItem) => {
+      item.values.push(item.value.toLowerCase())
+      return item.synonyms.map((synonym: Synonym) => item.values.push(synonym.value.toLowerCase()))
+    })
+
+    this.outputObservables = this.textEntity.text
+      .split('.').filter(chunk => chunk !== '')
+      .map(chunk => from(chunk))
+
+    this.inputObservables = this.textEntity.text
+      .split('.')
+      .map(chunk => new Subject<{ index: number; parts: string[] }>())
+
+    this.inputObservables.forEach((observable) => {
+      observable.subscribe((data) => {
+        this.rebuild(data)
+      })
+    })
+
+    this.textSequence = this.textEntity.text
+      .split('.')
+      .filter(chunk => chunk !== '')
+      .map(chunk => ({
+        text: chunk,
+        selected: false,
+        progress: 0
+      }))
+
+    this.length = this.textEntity.dictionary.length
+  }
+
+  // highlight text
+  private rebuild (data: { index: number; parts: string[] }): void {
+    data.parts = data.parts.filter(item => item !== '')
+
+    const usedDictionaryItems: DictionaryItem[] = []
+
+    data.parts.forEach((el: any) => {
+      const dictionaryItem = this.findDictionaryItem(el, data.index)
+      if (dictionaryItem !== undefined && usedDictionaryItems.find(el => el.id === dictionaryItem.id) === undefined) {
+        dictionaryItem.value = el
+        usedDictionaryItems.push(dictionaryItem)
+      }
+    })
+
+    const coordinates: any[][] = usedDictionaryItems.map(item => item.coordinates)
+    const starts: number[] = coordinates.map(item => item.map(subitem => subitem[0])).flat()
+    const ends: number[] = coordinates.map(item => item.map(subitem => subitem[1])).flat()
+    let output = ''
+    let counter = 0
+    let chunk = ''
+
+    this.outputObservables[data.index].subscribe((data: string) => {
+      chunk = data
+      // const position1 = starts.includes(counter)
+      const position1 = usedDictionaryItems.find((item: DictionaryItem) => item.coordinates.find((coord: any) => coord[0] === counter))
+      if (position1) {
+        chunk = `<span class="extra" style="--tooltip-color:${position1.color}; background-color: ${position1.color}" tooltip="${position1.value}">${chunk}`
+      }
+
+      const position2 = ends.includes(counter)
+      if (position2) {
+        chunk = `${chunk}</span>`
+      }
+
+      output += chunk
+      counter++
+    })
+
+    this.textSequence[data.index].text = output
+
+    this.textSequence[data.index].progress = [...new Set(usedDictionaryItems)].length
+  }
+
+  get output(): string {
     let output: string
 
     output = this.textSequence
@@ -113,9 +173,9 @@ export default class TextComponent extends Vue {
       })
       .join('. ')
 
-    if (this.showedExtra !== '') {
+    if (this.showedTooltip !== '' && this.showedTooltip !== undefined) {
       output = output.replace(
-        new RegExp(`(^|\\s|>)(${this.showedExtra.trim()})([^\\w]|$|<)`, 'gi'),
+        new RegExp(`(^|\\s|>)(${this.showedTooltip.trim()})([^\\w]|$|<)`, 'gi'),
         '$1<span class="warning-text">$2</span>$3'
       )
     }
@@ -123,67 +183,35 @@ export default class TextComponent extends Vue {
     return output
   }
 
-  loadText () {
-    this.text = JSON.parse(JSON.stringify(text))
-    this.dictionary = JSON.parse(JSON.stringify(syns))
-    this.inputObservables = text.text
-      .split('.')
-      .map(chunk => new Subject<{ index: number; parts: string[] }>())
-    this.inputObservables.forEach((observable) => {
-      observable.subscribe((data) => {
-        this.rebuild(data)
-      })
-    })
-    this.textSequence = text.text
-      .split('.')
-      .filter(chunk => chunk !== '')
-      .map(chunk => ({ text: chunk, selected: false, progress: 0 }))
-    this.length = [...new Set(text.text.split(' '))].length
-  }
-
-  rebuild (data: { index: number; parts: string[] }) {
-    data.parts = data.parts.filter(item => item !== '')
-
-    const origs: { [key: string]: string } = {}
-    const origparts: string[] = []
-
-    data.parts.forEach((el: any) => {
-      el = el.toLowerCase()
-      if (el !== '' && el in this.dictionary) {
-        origparts.push(this.dictionary[el][0])
-        origs[this.dictionary[el]] = el
-      }
-    })
-
-    const searchString: string = origparts.join('|')
-    this.textSequence[data.index].text = this.text.text
-      .split('.')
-      [data.index].replace(new RegExp(searchString, 'gi'), (match: string) => {
-        if (match !== '') {
-          return `<span class="success-text" tooltip=${origs[match]}>${match}</span>`
-        }
-        return match
-      })
-    this.textSequence[data.index].progress = [...new Set(origparts)].length
-  }
-
-  findPosition (ev: any) {
+  public findPosition(ev: any): void {
     this.currentSentenceSubject.next(
-      this.inputStream.substring(0, ev.target.selectionStart).split('.')
-        .length - 1
+      this.inputStream.substring(0, ev.target.selectionStart).split('.').length - 1
     )
   }
 
-  showExtra (extra: any) {
-    this.showedExtra = extra.orig
+  private findDictionaryItem(search: string, sentenceNum: number): DictionaryItem {
+    search = search.replace(',', '').toLowerCase()
+    return this.textEntity.dictionary.find(item => item.sentenceNum === sentenceNum && item.values.includes(search))
   }
 
-  clearExtra () {
-    this.showedExtra = ''
+  get progress(): number {
+    const count = this.textSequence.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.progress,
+      0
+    )
+    return Math.floor((count * 100) / this.length)
   }
 
-  async clear () {
-    await this.loadText()
+  public showTooltip(tooltip: Tooltip): void {
+    this.showedTooltip = tooltip.object
+  }
+
+  public clearTooltip(): void {
+    this.showedTooltip = ''
+  }
+
+  async clear() {
+    await this.load()
     this.currentSentenceSubject.next(0)
     this.inputStream = ''
   }
@@ -193,6 +221,13 @@ export default class TextComponent extends Vue {
 <style lang="scss">
 @import '../../assets/scss/variables';
 
+.extra {
+  color: white;
+  border-radius: 2px;
+}
+.active-sentence {
+  border-bottom: 1px solid $danger-color;
+}
 h2 {
   border-bottom: 1px solid #777;
   margin-bottom: 10px;

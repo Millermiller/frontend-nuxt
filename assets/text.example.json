@@ -1,0 +1,372 @@
+{
+  "id": 5,
+  "title": "Lorem Ipsum",
+  "level": 1,
+  "description": null,
+  "count": 4,
+  "published": true,
+  "available": true,
+  "active": true,
+  "language": {
+    "id": 1,
+    "title": "Исландский",
+    "letter": "is",
+    "flag": "https://api.scandinaver.local/img/is_round.png"
+  },
+  "tooltips": [
+    {
+      "id": 1,
+      "text_id": 5,
+      "object": "ekkert",
+      "value": "нечего"
+    },
+    {
+      "id": 2,
+      "text_id": 5,
+      "object": "Lísa",
+      "value": "Алисе"
+    }
+  ],
+  "image": null,
+  "dictionary": [
+    {
+      "id": 1,
+      "text": "Lísa",
+      "value": "алисе",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          0,
+          3
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 2,
+      "text": "hafði",
+      "value": "было",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          5,
+          9
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 3,
+      "text": "ekkert fyrir stafni",
+      "value": "скучно",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          11,
+          29
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 4,
+      "text": "fyrir stafni",
+      "value": "делать",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          18,
+          29
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 5,
+      "text": "og",
+      "value": "и",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          31,
+          32
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 6,
+      "text": "á",
+      "value": "на",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          42,
+          42
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 7,
+      "text": "ekkert",
+      "value": "нечего",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          11,
+          16
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 8,
+      "text": "hún",
+      "value": "она",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          34,
+          36
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 9,
+      "text": "við hlið",
+      "value": "рядом",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          51,
+          59
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 1,
+          "value": "возле"
+        },
+        {
+          "id": 1,
+          "value": "с"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "sinnar",
+      "value": "ее",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          68,
+          76
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 1,
+          "value": "её"
+        },
+        {
+          "id": 1,
+          "value": "своей"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "text": "systur sinnar",
+      "value": "сестрой",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          61,
+          73
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 12,
+      "text": "systur",
+      "value": "сестры",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          61,
+          66
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 13,
+      "text": "sat",
+      "value": "сидела",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          38,
+          40
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 14,
+      "text": "bekknum",
+      "value": "скамейке",
+      "sentenceNum": 0,
+      "coordinates": [
+        [
+          44,
+          50
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 0,
+          "value": "скамье"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "text": "Skyndilega",
+      "value": "вдруг",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          1,
+          10
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 0,
+          "value": "внезапно"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "text": "hún",
+      "value": "она",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          12,
+          14
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 16,
+      "text": "sá",
+      "value": "увидела",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          16,
+          17
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 0,
+          "value": "заметила"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "text": "hvíta",
+      "value": "белого",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          19,
+          23
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 18,
+      "text": "kanínu",
+      "value": "кролика",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          25,
+          30
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 19,
+      "text": "sem",
+      "value": "который",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          33,
+          35
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 20,
+      "text": "hljóp",
+      "value": "бежал",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          37,
+          41
+        ]
+      ],
+      "synonyms": [
+        {
+          "id": 0,
+          "value": "пробежал"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "text": "sem hljóp",
+      "value": "пробежавшего",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          33,
+          41
+        ]
+      ],
+      "synonyms": []
+    },
+    {
+      "id": 22,
+      "text": "fram hjá",
+      "value": "мимо",
+      "sentenceNum": 1,
+      "coordinates": [
+        [
+          43,
+          50
+        ]
+      ],
+      "synonyms": []
+    }
+  ],
+  "text": "Lísa hafði ekkert fyrir stafni og hún sat á bekknum við hlið systur sinnar. Skyndilega hún sá hvíta kanínu, sem hljóp fram hjá.",
+  "translate": ""
+}

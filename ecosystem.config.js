@@ -1,10 +1,10 @@
 module.exports = {
   apps: [{
     name: 'API',
-    script: './.nuxt/App.js',
+    script: './node_modules/.bin/nuxt',
 
     // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
-    args: 'one two',
+    args: 'start',
     instances: 1,
     autorestart: true,
     watch: false,

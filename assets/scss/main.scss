@@ -8,7 +8,7 @@ html {
   height: 100%;
 }
 body {
-  display: grid;
+  display: flex;
   margin: 0;
   font-size: 14px;
   line-height: 1.42857143;
@@ -16,6 +16,9 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #777;
   min-height: 100%;
+}
+#__nuxt {
+  width: 100%;
 }
 #__layout {
   display: unset;
